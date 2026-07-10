@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITCG — IT Consult Group | Финтех-платформа для финансового сектора</title>
+  <meta name="description" content="ITCG — разработчик финтех-платформы для МФО и банков Узбекистана. Скоринг, интеграционный шлюз, кибербезопасность и собственный кредитный продукт Pulbering.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="itcg-logo.svg">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Brand palette — exact logo colors */
+      --blue:       #2B5FFF;   /* logo primary blue */
+      --blue-dk:    #0030EE;   /* logo deep blue */
+      --blue-lt:    #5C85FF;   /* hover / lighter variant */
+      --teal:       #00EDBB;   /* logo teal accent */
+      --teal-dk:    #00CC80;   /* logo teal end */
+      --purple:     #7C5CF6;   /* cyber section accent */
+      --purple-lt:  #9E82FF;
+      --navy:       #0A1A6B;   /* deep dark-blue base */
+      --text:       #1C2B52;
+      --muted:      #6878A8;
+      --border:     #DFE8FF;
+      --bg-section: #F3F6FF;
+      --white:      #FFFFFF;
+      --shadow-blue: rgba(43, 95, 255, 0.15);
+      --shadow-teal: rgba(0, 237, 187, 0.12);
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ═══════════════════════════════
+       HEADER
+    ═══════════════════════════════ */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(43,95,255,0.06);
+    }
+
+    .header-main {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+    }
+
+    .header-actions {
+      display: flex; align-items: center; gap: 18px;
+    }
+    .header-phone {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color .2s; white-space: nowrap;
+    }
+    .header-phone:hover { color: var(--blue); }
+    .header-phone svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-name { font-size: 16px; font-weight: 800; color: var(--navy); letter-spacing: -0.3px; line-height: 1.1; }
+    .logo-sub  { font-size: 10px; color: var(--muted); font-weight: 400; }
+
+    .nav { display: flex; align-items: center; gap: 26px; }
+    .nav a {
+      color: var(--muted); text-decoration: none;
+      font-size: 13.5px; font-weight: 500; transition: color .2s;
+    }
+    .nav a:hover { color: var(--blue); }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 10px;
+           font-weight: 600; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
+    .btn-sm { font-size: 13px; padding: 9px 20px; }
+    .btn-lg { font-size: 15px; padding: 14px 30px; border-radius: 12px; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-lt) 100%);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(76,123,248,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(76,123,248,0.4); }
+    .btn-outline { background: transparent; color: var(--white);
+                   border: 1.5px solid rgba(255,255,255,0.3); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
+    .btn-outline-dark { background: transparent; color: var(--text);
+                        border: 1.5px solid var(--border); }
+    .btn-outline-dark:hover { background: var(--bg-section); }
+
+    .menu-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      padding: 8px; border-radius: 8px; -webkit-tap-highlight-color: transparent;
+    }
+    .menu-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--navy); border-radius: 2px;
+      transition: transform .25s, opacity .2s;
+    }
+    .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-nav {
+      display: none; flex-direction: column;
+      position: fixed; top: 70px; left: 0; right: 0; z-index: 98;
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px 24px;
+      box-shadow: 0 12px 40px rgba(10,26,107,0.14);
+      gap: 2px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 15px; font-weight: 500; color: var(--text);
+      text-decoration: none; padding: 13px 16px; border-radius: 10px;
+      transition: background .15s, color .15s;
+    }
+    .mobile-nav a:hover, .mobile-nav a:active { background: var(--bg-section); color: var(--blue); }
+    .mobile-nav .mob-accent { color: var(--teal); font-weight: 700; }
+    .mobile-nav .mob-divider {
+      height: 1px; background: var(--border); margin: 10px 0;
+    }
+    .mobile-nav .mob-phone {
+      font-size: 15px; font-weight: 600; color: var(--blue); text-decoration: none;
+      padding: 13px 16px; border-radius: 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .mobile-nav .btn { margin-top: 6px; justify-content: center; padding: 14px; font-size: 15px; }
+
+    /* ═══════════════════════════════
+       HERO
+    ═══════════════════════════════ */
+    .hero {
+      background: linear-gradient(145deg, #0A1A6B 0%, #0030EE 55%, #2B5FFF 100%);
+      padding: 140px 24px 96px;
+      position: relative; overflow: hidden;
+    }
+    .hero-blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+    }
+    .hero-blob-1 {
+      width: 700px; height: 700px;
+      top: -20%; right: -10%;
+      background: rgba(106, 149, 255, 0.25);
+    }
+    .hero-blob-2 {
+      width: 500px; height: 500px;
+      bottom: -15%; left: 0%;
+      background: rgba(0, 212, 170, 0.15);
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+
+    .hero-layout {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 440px; gap: 80px; align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,237,187,0.1); border: 1px solid rgba(0,237,187,0.3);
+      border-radius: 100px; padding: 7px 18px; margin-bottom: 24px;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--teal);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .hero-badge span { font-size: 12px; font-weight: 600; color: var(--teal); }
+
+    .hero h1 {
+      font-size: 54px; font-weight: 900; color: var(--white);
+      letter-spacing: -2.5px; line-height: 1.08; margin-bottom: 22px;
+    }
+    .hero h1 .accent { color: var(--teal); }
+
+    .hero-desc {
+      font-size: 17px; color: rgba(255,255,255,0.88); line-height: 1.75;
+      max-width: 520px; margin-bottom: 38px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; margin-bottom: 48px; }
+
+    .hero-stats {
+      display: flex; gap: 0;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 14px;
+      overflow: hidden; background: rgba(255,255,255,0.03);
+    }
+    .hero-stat {
+      flex: 1; padding: 18px 20px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-size: 28px; font-weight: 900; color: var(--white);
+      letter-spacing: -1.5px; line-height: 1;
+      display: block; margin-bottom: 4px;
+    }
+    .hero-stat-num .accent { color: var(--teal); }
+    .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.72); line-height: 1.4; }
+
+    /* Hero right panel — flow diagram */
+    .hero-panel {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .panel-hdr {
+      font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.62);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
+    }
+    .flow-row { display: flex; gap: 6px; }
+    .flow-chip {
+      flex: 1; text-align: center; padding: 9px 4px; border-radius: 8px;
+      font-size: 10.5px; font-weight: 500; line-height: 1.35;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.78);
+    }
+    .flow-arrow { text-align: center; color: rgba(255,255,255,0.5); font-size: 18px; line-height: 1; }
+    .flow-box {
+      border-radius: 10px; padding: 13px 16px; text-align: center; font-size: 13px; font-weight: 700;
+    }
+    .flow-box.gw { background: rgba(0,237,187,0.12); border: 1px solid rgba(0,237,187,0.3); color: var(--teal); }
+    .flow-box.sc { background: rgba(26,79,255,0.22); border: 1px solid rgba(26,79,255,0.45); color: #90AAFF; }
+    .flow-results { display: flex; gap: 6px; }
+    .flow-res { flex: 1; border-radius: 8px; padding: 9px 4px; text-align: center; font-size: 10px; font-weight: 700; line-height: 1.35; }
+    .flow-res.ok { background: rgba(0,204,128,0.15); border: 1px solid rgba(0,204,128,0.3); color: #00CC80; }
+    .flow-res.no { background: rgba(220,50,60,0.12); border: 1px solid rgba(220,50,60,0.3); color: #FF7080; }
+    .flow-res.rv { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: #FBBF5A; }
+    .flow-kpi {
+      padding: 12px 14px; margin-top: 4px;
+      background: rgba(0,237,187,0.07); border: 1px solid rgba(0,237,187,0.2);
+      border-radius: 10px; font-size: 12px; color: rgba(255,255,255,0.82);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .flow-kpi strong { color: var(--teal); font-size: 20px; font-weight: 900; }
+
+    /* Hero floating badges */
+    .hero-floating {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; padding: 10px 14px; margin-top: 6px;
+    }
+    .hero-floating-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(0,237,187,0.15); display: flex; align-items: center;
+      justify-content: center; font-size: 16px; flex-shrink: 0;
+    }
+    .hero-floating-label { font-size: 10px; color: rgba(255,255,255,0.70); font-weight: 600; letter-spacing: 0.3px; }
+    .hero-floating-value { font-size: 13px; font-weight: 700; color: var(--white); }
+
+    /* ═══════════════════════════════
+       SECTIONS — shared
+    ═══════════════════════════════ */
+    .section { padding: 96px 0; }
+    .section-tight { padding: 72px 0; }
+
+    .section-eyebrow {
+      display: block; font-size: 11px; font-weight: 700;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 12px;
+    }
+    .section-eyebrow.teal { color: var(--teal-dk); }
+    .section-eyebrow.purple { color: var(--purple); }
+    .section-eyebrow.white { color: rgba(255,255,255,0.75); }
+
+    .section-title {
+      font-size: 40px; font-weight: 900; letter-spacing: -1.5px;
+      line-height: 1.12; margin-bottom: 16px; color: var(--navy);
+    }
+    .section-title.light { color: var(--white); }
+
+    .section-subtitle {
+      font-size: 17px; color: var(--muted); line-height: 1.72; max-width: 580px;
+    }
+    .section-subtitle.light { color: rgba(255,255,255,0.88); }
+
+    .section-head { margin-bottom: 56px; }
+    .section-head.center { text-align: center; }
+    .section-head.center .section-subtitle { margin: 0 auto; }
+
+    /* ═══════════════════════════════
+       ABOUT
+    ═══════════════════════════════ */
+    .about-section { background: var(--bg-section); }
+
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+
+    .about-visual { position: relative; }
+    .about-cards {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .about-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
+      transition: box-shadow .25s, transform .2s;
+    }
+    .about-card:hover { box-shadow: 0 8px 28px rgba(26,79,255,0.1); transform: translateY(-3px); }
+    .about-card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+    .about-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .about-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .about-card.accent-blue { border-top: 3px solid var(--blue); }
+    .about-card.accent-teal { border-top: 3px solid var(--teal-dk); }
+
+    .about-stat-block {
+      display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(135deg, #0A1A6B 0%, #0030EE 100%);
+      border-radius: 18px;
+      padding: 24px 28px; margin-top: 14px;
+      box-shadow: 0 8px 32px rgba(35,64,196,0.25);
+    }
+    .about-stat-num { font-size: 42px; font-weight: 900; color: var(--white); letter-spacing: -2px; line-height: 1; }
+    .about-stat-label { font-size: 13px; color: rgba(255,255,255,0.88); line-height: 1.4; }
+
+    .about-features {
+      list-style: none; display: flex; flex-direction: column; gap: 12px;
+      margin-top: 28px;
+    }
+    .about-features li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 15px; color: var(--text);
+    }
+    .about-check {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(0, 204, 128, 0.12); border: 1.5px solid rgba(0, 204, 128, 0.35);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+      font-size: 11px; color: var(--teal-dk); font-weight: 700;
+    }
+    .about-features strong { color: var(--navy); }
+
+    /* ═══════════════════════════════
+       FINANCIAL PRODUCTS
+    ═══════════════════════════════ */
+    .fin-section { background: var(--white); }
+
+    .pulbering-card {
+      background: linear-gradient(145deg, #0A1A6B 0%, #0030EE 100%);
+      border-radius: 24px; padding: 52px 56px;
+      display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start;
+      position: relative; overflow: hidden;
+    }
+    .pulbering-card::before {
+      content: ''; position: absolute; top: -30%; right: 5%;
+      width: 50%; height: 130%;
+      background: radial-gradient(ellipse, rgba(0,237,187,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .pulb-tag {
+      display: inline-flex; align-items: center; gap: 7px; margin-bottom: 20px;
+      background: rgba(0,237,187,0.12); border: 1px solid rgba(0,237,187,0.3);
+      border-radius: 100px; padding: 6px 16px;
+    }
+    .pulb-tag span { font-size: 12px; font-weight: 700; color: var(--teal); }
+    .pulb-tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
+
+    .pulbering-card h3 {
+      font-size: 36px; font-weight: 900; color: var(--white);
+      letter-spacing: -1.5px; margin-bottom: 14px;
+    }
+    .pulbering-card h3 .accent { color: var(--teal); }
+    .pulbering-card > div > p {
+      font-size: 16px; color: rgba(255,255,255,0.88); line-height: 1.75; margin-bottom: 28px;
+    }
+    .pulb-feat-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .pulb-feat-list li { font-size: 14px; color: rgba(255,255,255,0.90); display: flex; align-items: flex-start; gap: 10px; }
+    .pulb-feat-list li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    .comm-panel {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px; padding: 30px; position: relative; z-index: 1;
+    }
+    .comm-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.65);
+                  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px; }
+    .comm-formula {
+      background: rgba(0,204,128,0.1); border: 1px solid rgba(0,204,128,0.25);
+      border-radius: 10px; padding: 14px 16px; margin-bottom: 20px;
+      font-size: 14px; font-weight: 700; color: var(--teal); font-family: monospace;
+      line-height: 1.5;
+    }
+    .comm-benefits { display: flex; flex-direction: column; gap: 9px; }
+    .comm-benefit {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13px; color: rgba(255,255,255,0.90);
+    }
+    .comm-benefit::before { content: '✓'; color: var(--teal-dk); font-weight: 700; flex-shrink: 0; }
+
+    /* ═══════════════════════════════
+       IT PLATFORM
+    ═══════════════════════════════ */
+    .tech-section { background: var(--bg-section); }
+
+    .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .platform-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 40px;
+      transition: box-shadow .25s, transform .2s;
+      position: relative; overflow: hidden;
+    }
+    .platform-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .platform-card.blue::before { background: linear-gradient(90deg, var(--blue), var(--blue-lt)); }
+    .platform-card.teal::before { background: linear-gradient(90deg, var(--teal), var(--teal-dk)); }
+    .platform-card:hover { box-shadow: 0 16px 48px var(--shadow-blue); transform: translateY(-3px); }
+
+    .platform-cert {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #FFF9E6; border: 1px solid #E8D060;
+      border-radius: 6px; padding: 5px 12px;
+      font-size: 11px; font-weight: 700; color: #7A5C00; margin-bottom: 18px;
+    }
+    .platform-card h3 { font-size: 26px; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; margin-bottom: 12px; }
+    .platform-card > p { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .feat-list li { font-size: 14px; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+    .feat-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .feat-list.blue li::before { color: var(--blue); }
+    .feat-list.teal li::before { color: var(--teal-dk); }
+
+    /* ═══════════════════════════════
+       DATA SOURCES
+    ═══════════════════════════════ */
+    .sources-section { background: var(--white); }
+
+    .sources-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .source-chip {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 16px; text-align: center;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .source-chip:hover {
+      border-color: var(--teal-dk);
+      box-shadow: 0 6px 20px rgba(0,204,128,0.1);
+      transform: translateY(-2px);
+    }
+    .source-chip-icon { font-size: 28px; margin-bottom: 10px; }
+    .source-chip-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .source-chip-desc { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+
+    /* ═══════════════════════════════
+       TECH STACK BAR
+    ═══════════════════════════════ */
+    .tech-stack-bar {
+      background: linear-gradient(135deg, #0A1A6B 0%, #0030EE 100%);
+      padding: 32px 0;
+    }
+    .tsb-inner { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; }
+    .tsb-label {
+      font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.70);
+      letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap;
+    }
+    .tsb-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tsb-chip {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.92);
+    }
+
+    /* ═══════════════════════════════
+       CYBERSECURITY
+    ═══════════════════════════════ */
+    .cyber-section { background: var(--bg-section); }
+
+    .cyber-cluster-label {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px; margin-top: 40px;
+    }
+    .ccl-line { flex: 1; height: 1px; background: #D4C8FF; }
+    .ccl-content { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .ccl-tag {
+      font-size: 11px; font-weight: 800; color: var(--purple);
+      background: #F3F0FF; border: 1px solid #C8BEFF;
+      border-radius: 6px; padding: 4px 10px; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .ccl-title {
+      font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap;
+    }
+
+    .cyberus-hero-block {
+      background: linear-gradient(135deg, #0A1A6B 0%, #0030EE 50%, #2B5FFF 100%);
+      border-radius: 24px; padding: 52px 56px; margin-bottom: 24px;
+      display: grid; grid-template-columns: 1fr auto; gap: 64px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .cyberus-hero-block::before {
+      content: ''; position: absolute; top: -40%; right: 10%;
+      width: 50%; height: 140%;
+      background: radial-gradient(ellipse, rgba(107,78,255,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cyber-badge {
+      display: inline-flex; align-items: center; gap: 7px; margin-bottom: 16px;
+      background: rgba(107,78,255,0.18); border: 1px solid rgba(107,78,255,0.4);
+      border-radius: 100px; padding: 7px 18px;
+    }
+    .cyber-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--purple-lt); display: inline-block; }
+    .cyber-badge span { font-size: 12px; font-weight: 700; color: var(--purple-lt); }
+
+    .cyberus-hero-block h3 {
+      font-size: 32px; font-weight: 900; color: var(--white);
+      letter-spacing: -1px; margin-bottom: 14px;
+    }
+    .cyberus-hero-block p {
+      font-size: 16px; color: rgba(255,255,255,0.88); line-height: 1.72; max-width: 560px;
+    }
+    .cyber-facts { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+    .cyber-fact {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 10px 16px;
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.95);
+    }
+    .cyberus-logo-panel {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(107,78,255,0.3);
+      border-radius: 18px; padding: 32px 40px;
+      text-align: center; white-space: nowrap; flex-shrink: 0;
+      position: relative; z-index: 1;
+    }
+    .cyberus-wordmark { font-size: 38px; font-weight: 900; color: var(--white); letter-spacing: -1.5px; line-height: 1; }
+    .cyberus-wordmark .ca { color: var(--purple-lt); }
+    .cyberus-wordmark-sub { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 8px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .cyberus-partner-badge {
+      display: inline-block; margin-top: 14px;
+      background: rgba(107,78,255,0.22); border: 1px solid rgba(107,78,255,0.45);
+      border-radius: 6px; padding: 4px 12px; font-size: 11px; font-weight: 700; color: var(--purple-lt);
+    }
+
+    .cyber-engineers {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px 40px; margin-bottom: 24px;
+      display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center;
+    }
+    .cyber-engineers-icon { font-size: 52px; }
+    .cyber-engineers h4 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+    .cyber-engineers p { font-size: 15px; color: var(--muted); line-height: 1.72; }
+
+    .cyber-products-divider {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
+    }
+    .cpd-line { flex: 1; height: 1px; background: var(--border); }
+    .cpd-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
+
+    .cyber-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+    .cyber-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+    .cyber-card {
+      background: #F3F0FF; border: 1px solid #C8BEFF;
+      border-radius: 16px; padding: 28px;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .cyber-card:hover {
+      border-color: var(--purple);
+      box-shadow: 0 8px 28px rgba(107,78,255,0.12);
+      transform: translateY(-2px);
+    }
+    .cyber-card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+    .cyber-card-tag { font-size: 11px; font-weight: 800; color: var(--purple); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 7px; display: block; }
+    .cyber-card h4 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+    .cyber-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ═══════════════════════════════
+       КИБЕРИСПЫТАНИЯ — PAY ON BREACH
+    ═══════════════════════════════ */
+    .redtest-section {
+      background: linear-gradient(145deg, #0A1A6B 0%, #0030EE 55%, #2B5FFF 100%);
+      padding: 96px 0;
+      position: relative; overflow: hidden;
+    }
+    .redtest-section::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .redtest-blob {
+      position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
+    }
+    .redtest-blob-1 { width: 600px; height: 600px; top: -20%; right: -5%;
+      background: rgba(158, 130, 255, 0.22); }
+    .redtest-blob-2 { width: 400px; height: 400px; bottom: -10%; left: -5%;
+      background: rgba(0, 212, 170, 0.15); }
+
+    .redtest-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0, 212, 170, 0.1); border: 1px solid rgba(0, 212, 170, 0.3);
+      border-radius: 100px; padding: 7px 18px; margin-bottom: 20px;
+    }
+    .redtest-eyebrow-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--teal);
+      animation: pulse 2s infinite;
+    }
+    .redtest-eyebrow span { font-size: 12px; font-weight: 700; color: var(--teal); }
+
+    .redtest-title {
+      font-size: 50px; font-weight: 900; color: var(--white);
+      letter-spacing: -2px; line-height: 1.08; margin-bottom: 16px;
+    }
+    .redtest-title .accent-breach { color: var(--teal); }
+    .redtest-subtitle {
+      font-size: 17px; color: rgba(255,255,255,0.88); line-height: 1.75;
+      max-width: 580px; margin-bottom: 36px;
+    }
+
+    /* Promise metrics */
+    .redtest-promise {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 14px;
+      margin-bottom: 48px; position: relative; z-index: 1;
+    }
+    .redtest-promise-lead {
+      background: rgba(0, 212, 170, 0.08); border: 1px solid rgba(0, 212, 170, 0.2);
+      border-radius: 14px; padding: 22px 26px;
+      font-size: 14px; color: rgba(255,255,255,0.88); line-height: 1.65;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .redtest-promise-lead .pl-label {
+      font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 10px;
+    }
+    .redtest-metric {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 22px 24px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .redtest-metric-val {
+      font-size: 36px; font-weight: 900; line-height: 1; letter-spacing: -1px;
+    }
+    .redtest-metric.m1 .redtest-metric-val { color: var(--purple-lt); }
+    .redtest-metric.m2 .redtest-metric-val { color: var(--teal); }
+    .redtest-metric-label { font-size: 12px; color: rgba(255,255,255,0.78); line-height: 1.5; }
+
+    /* 4-stage timeline */
+    .redtest-stages {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      margin-bottom: 40px; position: relative; z-index: 1;
+    }
+    .redtest-stages::before {
+      content: ''; position: absolute; top: 28px; left: 8%; right: 8%;
+      height: 1px; background: linear-gradient(to right,
+        rgba(106,149,255,0.5), rgba(106,149,255,0.5),
+        rgba(158,130,255,0.5), rgba(0,212,170,0.5));
+      z-index: 0;
+    }
+    .redtest-stage {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 22px 18px; text-align: center;
+      position: relative; z-index: 1;
+      transition: border-color .2s, background .2s;
+    }
+    .redtest-stage:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); }
+    .redtest-stage-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; margin: 0 auto 14px;
+    }
+    .redtest-stage:nth-child(1) .redtest-stage-num { background: rgba(76,123,248,0.2); border: 1.5px solid rgba(106,149,255,0.5); color: var(--blue-lt); }
+    .redtest-stage:nth-child(2) .redtest-stage-num { background: rgba(76,123,248,0.2); border: 1.5px solid rgba(106,149,255,0.5); color: var(--blue-lt); }
+    .redtest-stage:nth-child(3) .redtest-stage-num { background: rgba(124,92,246,0.2); border: 1.5px solid rgba(158,130,255,0.5); color: var(--purple-lt); }
+    .redtest-stage:nth-child(4) .redtest-stage-num { background: rgba(0,212,170,0.15); border: 1.5px solid rgba(0,212,170,0.4); color: var(--teal); }
+    .redtest-stage-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+    .redtest-stage h4 { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 6px; line-height: 1.3; }
+    .redtest-stage p { font-size: 12px; color: rgba(255,255,255,0.78); line-height: 1.55; }
+    .redtest-stage-duration {
+      display: inline-block; margin-top: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      color: rgba(255,255,255,0.62); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px; padding: 3px 8px;
+    }
+
+    /* Outcome cards */
+    .redtest-outcomes {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      position: relative; z-index: 1;
+    }
+    .redtest-outcome { border-radius: 20px; padding: 32px 36px; }
+    .redtest-outcome.success { background: rgba(124,92,246,0.12); border: 1.5px solid rgba(158,130,255,0.35); }
+    .redtest-outcome.safe    { background: rgba(0,212,170,0.08);  border: 1.5px solid rgba(0,212,170,0.3); }
+    .redtest-outcome-icon { font-size: 38px; margin-bottom: 14px; display: block; }
+    .redtest-outcome h4 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .redtest-outcome.success h4 { color: var(--purple-lt); }
+    .redtest-outcome.safe h4    { color: var(--teal); }
+    .redtest-outcome p { font-size: 14px; color: rgba(255,255,255,0.88); line-height: 1.65; margin-bottom: 18px; }
+    .redtest-outcome-tag {
+      display: inline-block; border-radius: 8px; padding: 8px 18px;
+      font-size: 13px; font-weight: 800;
+    }
+    .redtest-outcome.success .redtest-outcome-tag { background: rgba(124,92,246,0.2);  color: var(--purple-lt); }
+    .redtest-outcome.safe    .redtest-outcome-tag { background: rgba(0,212,170,0.15); color: var(--teal); }
+
+    /* Cluster hint */
+    .redtest-cluster {
+      margin-top: 24px; padding: 22px 28px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px; display: flex; align-items: center; gap: 18px;
+      position: relative; z-index: 1;
+    }
+    .redtest-cluster-icon { font-size: 28px; flex-shrink: 0; }
+    .redtest-cluster h5 { font-size: 14px; font-weight: 700; color: var(--blue-lt); margin-bottom: 4px; }
+    .redtest-cluster p { font-size: 13px; color: rgba(255,255,255,0.82); line-height: 1.55; }
+
+    /* Perks row */
+    .redtest-perks {
+      display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .redtest-perk {
+      display: flex; align-items: center; gap: 9px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 11px 16px; flex: 1; min-width: 160px;
+    }
+    .redtest-perk-icon { font-size: 18px; flex-shrink: 0; }
+    .redtest-perk-text { font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.90); }
+
+    @media (max-width: 1024px) {
+      .redtest-stages { grid-template-columns: repeat(2, 1fr); }
+      .redtest-stages::before { display: none; }
+      .redtest-promise { grid-template-columns: 1fr; }
+      .redtest-outcomes { grid-template-columns: 1fr; }
+      .redtest-title { font-size: 36px; }
+    }
+    @media (max-width: 768px) {
+      .redtest-stages { grid-template-columns: 1fr; }
+      .redtest-cluster { flex-direction: column; gap: 10px; }
+    }
+
+    /* ═══════════════════════════════
+       FEATURES
+    ═══════════════════════════════ */
+    .features-section { background: var(--white); }
+
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .feature-card {
+      background: var(--bg-section); border: 1px solid var(--border);
+      border-radius: 18px; padding: 32px;
+      transition: box-shadow .25s, transform .2s, border-color .2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 8px 28px rgba(26,79,255,0.09);
+      border-color: #C4D2FF;
+      transform: translateY(-3px);
+    }
+    .feature-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+    .feature-card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+    .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ═══════════════════════════════
+       PRICING
+    ═══════════════════════════════ */
+    .pricing-section { background: var(--bg-section); }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .price-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px; position: relative;
+    }
+    .price-card.featured { border-color: var(--blue); box-shadow: 0 8px 40px rgba(26,79,255,0.14); }
+    .price-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--blue); color: var(--white);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 5px 16px; border-radius: 100px; white-space: nowrap;
+    }
+    .price-name { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 10px; }
+    .price-val { font-size: 44px; font-weight: 900; color: var(--navy); letter-spacing: -2.5px; line-height: 1; margin-bottom: 6px; }
+    .price-val sup { font-size: 22px; font-weight: 700; letter-spacing: 0; }
+    .price-period { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .price-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .price-list li { font-size: 13px; color: var(--text); display: flex; align-items: flex-start; gap: 9px; }
+    .price-list li::before { content: '✓'; color: var(--teal-dk); font-weight: 700; flex-shrink: 0; }
+    .price-cta {
+      display: block; text-align: center; margin-top: 28px;
+      padding: 13px; border-radius: 10px; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all .2s;
+    }
+    .price-cta.outline { border: 1.5px solid var(--border); color: var(--text); }
+    .price-cta.outline:hover { background: var(--bg-section); }
+    .price-cta.solid { background: var(--blue); color: var(--white); }
+    .price-cta.solid:hover { background: var(--blue-lt); transform: translateY(-1px); }
+    .price-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 22px; }
+
+    /* ═══════════════════════════════
+       CTA BLOCK
+    ═══════════════════════════════ */
+    .cta-section { padding: 0 24px 96px; }
+    .cta-block {
+      background: linear-gradient(145deg, #0A1A6B 0%, #0030EE 60%, #2B5FFF 100%);
+      border-radius: 24px; padding: 72px 56px; text-align: center;
+    }
+    .cta-block h2 {
+      font-size: 46px; font-weight: 900; color: var(--white);
+      letter-spacing: -1.5px; margin-bottom: 16px;
+    }
+    .cta-block p { font-size: 18px; color: rgba(255,255,255,0.88); margin-bottom: 38px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    .site-footer {
+      background: #0F1438;
+      padding: 64px 0 0;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: 48px;
+      padding-bottom: 56px;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .footer-mark {
+      width: 36px; height: 36px;
+    }
+    .footer-logo-name { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.95); }
+    .footer-about {
+      font-size: 13px; color: rgba(255,255,255,0.70); line-height: 1.7; margin-bottom: 22px;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; font-size: 15px;
+      transition: background .2s;
+    }
+    .footer-social a:hover { background: rgba(255,255,255,0.14); }
+
+    .footer-col h4 {
+      font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-col ul li a {
+      font-size: 14px; color: rgba(255,255,255,0.72); text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: rgba(255,255,255,0.95); }
+
+    .footer-contacts { display: flex; flex-direction: column; gap: 11px; }
+    .footer-contact-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: rgba(255,255,255,0.78); text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-contact-item:hover { color: rgba(255,255,255,0.95); }
+    .footer-contact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 22px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom-copy { font-size: 12px; color: rgba(255,255,255,0.52); }
+    .footer-bottom-reg { font-size: 12px; color: rgba(255,255,255,0.52); }
+
+    /* ═══════════════════════════════
+       ANIMATIONS — GSAP handles initial state, CSS is fallback-safe
+    ═══════════════════════════════ */
+
+    /* ═══════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════ */
+
+    /* ── Tablet landscape / small laptop (≤1100px) */
+    @media (max-width: 1100px) {
+      .nav { gap: 18px; }
+      .nav a { font-size: 13px; }
+      .hero-layout { grid-template-columns: 1fr; gap: 48px; }
+      .hero h1 { font-size: 42px; }
+      .hero-panel { max-width: 520px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .pulbering-card { grid-template-columns: 1fr; gap: 32px; padding: 40px; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .cyber-grid { grid-template-columns: 1fr 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .sources-grid { grid-template-columns: repeat(3, 1fr); }
+      .section { padding: 80px 0; }
+    }
+
+    /* ── Tablet portrait / large phone landscape (≤768px) */
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .header-phone { display: none; }
+      .menu-toggle { display: flex; }
+      .header-main { height: 64px; }
+      .section { padding: 64px 0; }
+      .section-tight { padding: 52px 0; }
+      .section-title { font-size: 30px; letter-spacing: -1px; }
+      .section-subtitle { font-size: 15px; }
+      .hero { padding: 104px 20px 68px; }
+      .hero h1 { font-size: 34px; letter-spacing: -1.5px; }
+      .hero-desc { font-size: 15px; }
+      .hero-actions { flex-wrap: wrap; gap: 10px; }
+      .hero-stats { flex-wrap: wrap; }
+      .hero-stat { min-width: 45%; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .hero-stat:nth-last-child(-n+2) { border-bottom: none; }
+      .hero-panel { display: none; }
+      .about-cards { grid-template-columns: 1fr; gap: 12px; }
+      .platform-card { padding: 28px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .sources-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: 1fr; }
+      .cyber-grid { grid-template-columns: 1fr; }
+      .cyber-grid-2 { grid-template-columns: 1fr; }
+      .cyberus-hero-block { grid-template-columns: 1fr; padding: 32px; gap: 24px; }
+      .cyberus-logo-panel { display: none; }
+      .cyber-engineers { grid-template-columns: 1fr; gap: 16px; padding: 28px; }
+      .cyber-engineers-icon { font-size: 40px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cta-block { padding: 48px 28px; }
+      .cta-block h2 { font-size: 32px; letter-spacing: -1px; }
+      .cta-actions { flex-direction: column; align-items: stretch; gap: 12px; }
+      .cta-actions .btn { justify-content: center; }
+      .pulbering-card { padding: 32px 28px; }
+      .pulbering-card h3 { font-size: 28px; }
+      .tsb-inner { gap: 20px; }
+    }
+
+    /* ── Phones portrait (≤480px) */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .section { padding: 52px 0; }
+      .section-tight { padding: 40px 0; }
+      .section-title { font-size: 26px; }
+      .hero { padding: 90px 16px 56px; }
+      .hero h1 { font-size: 28px; letter-spacing: -1px; }
+      .hero-desc { font-size: 14px; margin-bottom: 28px; }
+      .hero-badge span { font-size: 11px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { justify-content: center; }
+      .hero-stat-num { font-size: 22px; }
+      .hero-stat-label { font-size: 10px; }
+      .about-stat-num { font-size: 32px; }
+      .about-card { padding: 20px; }
+      .pulbering-card { padding: 24px 20px; border-radius: 18px; }
+      .pulbering-card h3 { font-size: 24px; }
+      .platform-card { padding: 22px; border-radius: 16px; }
+      .platform-card h3 { font-size: 22px; }
+      .sources-grid { grid-template-columns: 1fr 1fr; }
+      .cyber-card { padding: 22px; }
+      .cyberus-hero-block { padding: 24px 20px; border-radius: 18px; }
+      .cyberus-hero-block h3 { font-size: 24px; }
+      .cyber-engineers { padding: 22px; border-radius: 16px; }
+      .redtest-section { padding: 56px 0; }
+      .redtest-title { font-size: 26px !important; letter-spacing: -0.5px; }
+      .redtest-subtitle { font-size: 14px; }
+      .redtest-outcome { padding: 24px 20px; }
+      .redtest-outcome h4 { font-size: 17px; }
+      .redtest-perks { flex-direction: column; }
+      .redtest-cluster { padding: 18px 20px; }
+      .feature-card { padding: 24px; }
+      .price-card { padding: 28px; }
+      .cta-section { padding: 0 16px 56px; }
+      .cta-block { padding: 36px 20px; border-radius: 18px; }
+      .cta-block h2 { font-size: 26px; }
+      .cta-block p { font-size: 15px; }
+      .footer-grid { gap: 28px; }
+      .logo-name { font-size: 14px; }
+      .logo-sub { display: none; }
+    }
+
+    /* ── Very small phones (≤380px) */
+    @media (max-width: 380px) {
+      .hero h1 { font-size: 24px; }
+      .section-title { font-size: 22px; }
+      .sources-grid { grid-template-columns: 1fr; }
+      .hero-stat { min-width: 100%; }
+      .redtest-title { font-size: 22px !important; }
+      .cta-block h2 { font-size: 22px; }
+    }
+
+    /* ── Hover suppression on touch devices */
+    @media (hover: none) {
+      .platform-card:hover,
+      .about-card:hover,
+      .cyber-card:hover,
+      .source-chip:hover,
+      .feature-card:hover { transform: none; box-shadow: none; }
+      .btn-primary:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <div class="container header-main">
+    <a href="#" class="logo">
+      <svg class="logo-mark" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="nb" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2B5FFF"/><stop offset="100%" stop-color="#0030EE"/></linearGradient>
+          <linearGradient id="nt" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00EDBB"/><stop offset="100%" stop-color="#00CC80"/></linearGradient>
+        </defs>
+        <rect width="260" height="260" rx="52" fill="url(#nb)"/>
+        <rect x="38" y="30" width="184" height="14" rx="7" fill="url(#nt)"/>
+        <text x="130" y="118" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="100" fill="white" text-anchor="middle" letter-spacing="-4">IT</text>
+        <rect x="38" y="133" width="184" height="2" rx="1" fill="rgba(255,255,255,0.15)"/>
+        <text x="130" y="224" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="100" fill="rgba(255,255,255,0.88)" text-anchor="middle" letter-spacing="-4">CG</text>
+      </svg>
+      <div>
+        <div class="logo-name">IT Consult Group</div>
+        <div class="logo-sub">Fintech · Ташкент, Узбекистан</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="#about">О компании</a>
+      <a href="#fin-products">Финпродукты</a>
+      <a href="#tech-products">Платформа</a>
+      <a href="#cyber">Кибербезопасность</a>
+      <a href="#redtest" style="color:var(--teal);font-weight:700;">Кибериспытания</a>
+      <a href="#pricing">Стоимость</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-phone" href="tel:+998901330808">
+        <svg viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+        +998 90 133 08 08
+      </a>
+      <a href="#contact" class="btn btn-primary btn-sm">Связаться</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Открыть меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ MOBILE NAV ═══ -->
+<nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <a href="#about">О компании</a>
+  <a href="#fin-products">Финпродукты</a>
+  <a href="#tech-products">Платформа</a>
+  <a href="#cyber">Кибербезопасность</a>
+  <a href="#redtest" class="mob-accent">Кибериспытания</a>
+  <a href="#pricing">Стоимость</a>
+  <div class="mob-divider"></div>
+  <a class="mob-phone" href="tel:+998901330808">
+    <svg viewBox="0 0 20 20" style="width:16px;height:16px;fill:currentColor;flex-shrink:0"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+    +998 90 133 08 08
+  </a>
+  <a href="#contact" class="btn btn-primary">Связаться</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="container">
+    <div class="hero-layout">
+
+      <div class="hero-content">
+        <div class="hero-badge" data-anim="fade-up">
+          <span class="hero-badge-dot"></span>
+          <span>Финтех-компания · Собственные разработки · Ташкент</span>
+        </div>
+        <h1 data-anim="fade-up" data-delay="0.1">
+          Финансовые<br>технологии и <span class="accent">собственные</span><br>продукты для МФО
+        </h1>
+        <p class="hero-desc" data-anim="fade-up" data-delay="0.2">
+          Создаём IT-инфраструктуру для финансового сектора и сами на ней работаем. Скоринговая платформа, интеграционный шлюз и кредитный продукт Pulbering — всё собственной разработки.
+        </p>
+        <div class="hero-actions" data-anim="fade-up" data-delay="0.3">
+          <a href="#contact" class="btn btn-primary btn-lg">
+            Обсудить проект
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#fin-products" class="btn btn-outline btn-lg">Наши продукты</a>
+        </div>
+        <div class="hero-stats" data-anim="fade-up" data-delay="0.4">
+          <div class="hero-stat">
+            <span class="hero-stat-num"><span data-counter="100">0</span><span class="accent">K+</span></span>
+            <span class="hero-stat-label">заявок в сутки</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num"><span data-counter="8">0</span><span class="accent">+</span></span>
+            <span class="hero-stat-label">источников данных</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num"><span data-counter="14">0</span></span>
+            <span class="hero-stat-label">экспертов в команде</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num"><span data-counter="2">0</span></span>
+            <span class="hero-stat-label">госсвидетельства на ПО</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-anim="fade-left" data-delay="0.2">
+        <div class="hero-panel">
+          <div class="panel-hdr">Как работает платформа</div>
+          <div class="flow-row">
+            <div class="flow-chip">myGov</div>
+            <div class="flow-chip">КАТМ</div>
+            <div class="flow-chip">HUMO/UzCard</div>
+            <div class="flow-chip">UCell</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box gw">ITC Gateway — Интеграционный шлюз</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-box sc">ITC Scoring — Скоринговая платформа</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-results">
+            <div class="flow-res ok">✓ Одобрено</div>
+            <div class="flow-res no">✗ Отказ</div>
+            <div class="flow-res rv">⚠ Ревью</div>
+          </div>
+          <div class="flow-kpi">
+            <strong>100K+</strong>
+            <span>заявок в сутки — протестированная нагрузка</span>
+          </div>
+        </div>
+        <div class="hero-floating" style="margin-top:12px;">
+          <div class="hero-floating-icon">🏛️</div>
+          <div>
+            <div class="hero-floating-label">Зарегистрировано в Минюст РУз</div>
+            <div class="hero-floating-value">DGU 42334 · DGU 42333</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual" data-anim="fade-up">
+        <div class="about-cards">
+          <div class="about-card accent-blue">
+            <span class="about-card-icon">💳</span>
+            <h4>Финансовые продукты</h4>
+            <p>Кредитные решения для сегментов, которые банки не видят</p>
+          </div>
+          <div class="about-card accent-teal">
+            <span class="about-card-icon">🛠️</span>
+            <h4>ИТ-платформа</h4>
+            <p>Скоринг и шлюз для управления кредитными рисками</p>
+          </div>
+          <div class="about-card accent-teal">
+            <span class="about-card-icon">🔐</span>
+            <h4>Кибербезопасность</h4>
+            <p>Представитель Cyberus, собственные инженеры ИБ</p>
+          </div>
+          <div class="about-card accent-blue">
+            <span class="about-card-icon">📊</span>
+            <h4>Аналитика</h4>
+            <p>BI-аналитика по кредитному портфелю в реальном времени</p>
+          </div>
+        </div>
+        <div class="about-stat-block">
+          <div>
+            <div class="about-stat-num">14</div>
+          </div>
+          <div class="about-stat-label">экспертов в команде — разработчики, аналитики, инженеры ИБ</div>
+        </div>
+      </div>
+
+      <div data-anim="fade-up" data-delay="0.15">
+        <span class="section-eyebrow">О компании</span>
+        <h2 class="section-title">Финтех, который сам<br>работает на своих продуктах</h2>
+        <p class="section-subtitle">
+          ITCG — это не просто разработчик ПО. Наш собственный кредитный продукт Pulbering.uz работает на платформе ITC Scoring и ITC Gateway. Это доказывает, что технология работает в реальных боевых условиях.
+        </p>
+        <ul class="about-features">
+          <li>
+            <span class="about-check">✓</span>
+            <div><strong>Собственная разработка</strong> — оба программных продукта зарегистрированы в Государственном реестре ПО Минюст РУз</div>
+          </li>
+          <li>
+            <span class="about-check">✓</span>
+            <div><strong>Готовые интеграции</strong> — myGov, КАТМ, HUMO, UzCard, UCell, Beeline и другие источники данных</div>
+          </li>
+          <li>
+            <span class="about-check">✓</span>
+            <div><strong>Быстрое внедрение</strong> — подключение к скорингу и шлюзу без многомесячных проектов</div>
+          </li>
+          <li>
+            <span class="about-check">✓</span>
+            <div><strong>Кибербезопасность</strong> — официальный представитель Cyberus в Узбекистане</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINANCIAL PRODUCTS ═══ -->
+<section class="section fin-section" id="fin-products">
+  <div class="container">
+    <div class="section-head" data-anim="fade-up">
+      <span class="section-eyebrow">Финансовые продукты</span>
+      <h2 class="section-title">Собственный кредитный<br>продукт компании</h2>
+      <p class="section-subtitle">Мы не только продаём технологии — мы строим на них финансовый бизнес. Pulbering.uz работает на ITC Scoring и ITC Gateway прямо сейчас.</p>
+    </div>
+
+    <div class="pulbering-card" data-anim="fade-up" data-delay="0.1">
+      <div style="position:relative;z-index:1;">
+        <div class="pulb-tag">
+          <span class="pulb-tag-dot"></span>
+          <span>Собственный продукт · pulbering.uz</span>
+        </div>
+        <h3><span class="accent">Pulbering</span>.uz</h3>
+        <p>Платформа лидогенерации и прескоринга для кредитования самозанятых. Бесплатна для МФО и банков — комиссия только за успешно выданный кредит.</p>
+        <ul class="pulb-feat-list">
+          <li>Целевой сегмент: водители такси, курьеры, фрилансеры — с реальным доходом, невидимым в КАТМ</li>
+          <li>Прескоринг по фактическим доходам из агрегаторов — верифицированные данные</li>
+          <li>Канал привлечения: Telegram-боты в сообществах самозанятых</li>
+          <li>Банк или МФО получает готовое досье — нулевые затраты до момента выдачи</li>
+        </ul>
+        <a href="https://pulbering.uz" target="_blank" class="btn btn-primary btn-lg" style="display:inline-flex;">
+          Открыть Pulbering.uz
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+      <div class="comm-panel">
+        <div class="comm-label">Модель монетизации</div>
+        <div class="comm-formula">Комиссия =<br>0.63% × месяцев × сумма кредита</div>
+        <div class="comm-benefits">
+          <div class="comm-benefit">Верифицированные лиды с подтверждённым доходом</div>
+          <div class="comm-benefit">Готовое досье заёмщика в личном кабинете</div>
+          <div class="comm-benefit">Нет абонентской платы и скрытых платежей</div>
+          <div class="comm-benefit">Нулевые затраты до момента выдачи кредита</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ IT PLATFORM ═══ -->
+<section class="section tech-section" id="tech-products">
+  <div class="container">
+    <div class="section-head" data-anim="fade-up">
+      <span class="section-eyebrow teal">ИТ-платформа · Собственная разработка</span>
+      <h2 class="section-title">Технические продукты<br>для финансового сектора</h2>
+      <p class="section-subtitle">Оба программных продукта внесены в Государственный реестр Республики Узбекистан. Правообладатель — IT Consult Group.</p>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-card blue" data-anim="fade-up" data-delay="0.05">
+        <div class="platform-cert">🏛 Свидетельство № DGU 42334</div>
+        <h3>ITC Scoring</h3>
+        <p>Скоринговая платформа для автоматического принятия решений по кредитным заявкам. Настройка без программистов — через веб-кабинет.</p>
+        <ul class="feat-list blue">
+          <li>Настройка скоринговых моделей без участия ДИТ</li>
+          <li>Одновременная проверка по нескольким продуктам</li>
+          <li>Ретро-тестирование новых моделей на исторических данных</li>
+          <li>Защита модели от несогласованных изменений андеррайтером</li>
+          <li>Стоп-факторы: задолженности, кредитный шопинг, нагрузка, доходы</li>
+          <li>BI-аналитика: статистика выдач, причины отказов, стоимость запросов</li>
+          <li>Нагрузка: 100 000+ заявок в сутки</li>
+        </ul>
+      </div>
+      <div class="platform-card teal" data-anim="fade-up" data-delay="0.1">
+        <div class="platform-cert">🏛 Свидетельство № DGU 42333</div>
+        <h3>ITC Gateway</h3>
+        <p>Интеграционный шлюз — единая точка подключения к внешним источникам данных. Готовые коннекторы к ключевым источникам Узбекистана.</p>
+        <ul class="feat-list teal">
+          <li>myGov, КАТМ, UzAsbo, HUMO, UzCard, UCell, Beeline и другие</li>
+          <li>Кэширование — бесплатная повторная проверка клиента</li>
+          <li>Автоматический перезапрос при недоступности источника</li>
+          <li>Проверка ближайших родственников заёмщика</li>
+          <li>Сохранение всех данных для ретроанализа</li>
+          <li>Унифицированное REST API для вашей системы</li>
+          <li>Учёт лимита продукта и ранее выданных займов</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DATA SOURCES ═══ -->
+<section class="section-tight sources-section" id="sources">
+  <div class="container">
+    <div class="section-head" data-anim="fade-up">
+      <span class="section-eyebrow teal">Источники данных</span>
+      <h2 class="section-title">Готовые интеграции<br>с источниками данных РУз</h2>
+    </div>
+    <div class="sources-grid">
+      <div class="source-chip" data-anim="fade-up">
+        <div class="source-chip-icon">🏛️</div>
+        <div class="source-chip-name">myGov</div>
+        <div class="source-chip-desc">Юридический портрет клиента</div>
+      </div>
+      <div class="source-chip" data-anim="fade-up" data-delay="0.05">
+        <div class="source-chip-icon">📊</div>
+        <div class="source-chip-name">КАТМ</div>
+        <div class="source-chip-desc">Кредитное бюро: задолженности, история</div>
+      </div>
+      <div class="source-chip" data-anim="fade-up" data-delay="0.1">
+        <div class="source-chip-icon">🏢</div>
+        <div class="source-chip-name">UzAsbo</div>
+        <div class="source-chip-desc">Занятость в бюджетных организациях</div>
+      </div>
+      <div class="source-chip" data-anim="fade-up" data-delay="0.15">
+        <div class="source-chip-icon">💳</div>
+        <div class="source-chip-name">HUMO / UzCard</div>
+        <div class="source-chip-desc">Транзакции по картам для ML-анализа</div>
+      </div>
+      <div class="source-chip" data-anim="fade-up" data-delay="0.2">
+        <div class="source-chip-icon">📱</div>
+        <div class="source-chip-name">MyUzCard</div>
+        <div class="source-chip-desc">Транзакционная аналитика клиента</div>
+      </div>
+      <div class="source-chip" data-anim="fade-up" data-delay="0.25">
+        <div class="source-chip-icon">📡</div>
+        <div class="source-chip-name">UCell</div>
+        <div class="source-chip-desc">Поведенческие данные абонента</div>
+      </div>
+      <div class="source-chip" data-anim="fade-up" data-delay="0.3">
+        <div class="source-chip-icon">📶</div>
+        <div class="source-chip-name">Beeline</div>
+        <div class="source-chip-desc">Дополнительные поведенческие данные</div>
+      </div>
+      <div class="source-chip" data-anim="fade-up" data-delay="0.35" style="border-style:dashed;background:var(--bg-section);">
+        <div class="source-chip-icon" style="opacity:.5;">＋</div>
+        <div class="source-chip-name" style="color:var(--muted);">И другие</div>
+        <div class="source-chip-desc">Расширяемый список по запросу</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TECH STACK ═══ -->
+<div class="tech-stack-bar">
+  <div class="container">
+    <div class="tsb-inner">
+      <span class="tsb-label">Стек технологий</span>
+      <div class="tsb-chips">
+        <div class="tsb-chip">Kotlin</div>
+        <div class="tsb-chip">Java</div>
+        <div class="tsb-chip">PostgreSQL</div>
+        <div class="tsb-chip">Kafka MQ</div>
+        <div class="tsb-chip">Docker</div>
+        <div class="tsb-chip">Kubernetes</div>
+        <div class="tsb-chip">Микросервисы</div>
+        <div class="tsb-chip">REST API</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FEATURES ═══ -->
+<section class="section features-section">
+  <div class="container">
+    <div class="section-head center" data-anim="fade-up">
+      <span class="section-eyebrow" style="text-align:center;display:block;">Почему выбирают ITCG</span>
+      <h2 class="section-title">Конкурентные преимущества платформы</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" data-anim="fade-up" data-delay="0">
+        <span class="feature-icon">⚡</span>
+        <h3>100K+ заявок в сутки</h3>
+        <p>Платформа протестирована на высоких нагрузках. Горизонтальное масштабирование на Kubernetes — без ограничений по объёму.</p>
+      </div>
+      <div class="feature-card" data-anim="fade-up" data-delay="0.05">
+        <span class="feature-icon">🎛️</span>
+        <h3>Настройка без ДИТ</h3>
+        <p>Скоринговые модели, продукты и стоп-факторы настраиваются через веб-кабинет риск-менеджером без привлечения разработчиков.</p>
+      </div>
+      <div class="feature-card" data-anim="fade-up" data-delay="0.1">
+        <span class="feature-icon">🔗</span>
+        <h3>Готовые интеграции</h3>
+        <p>8+ готовых коннекторов к источникам РУз: myGov, КАТМ, HUMO, UzCard, UCell, Beeline — подключение без разработки с нуля.</p>
+      </div>
+      <div class="feature-card" data-anim="fade-up" data-delay="0.15">
+        <span class="feature-icon">🧪</span>
+        <h3>Ретро-тестирование</h3>
+        <p>Новые скоринговые модели тестируются на исторических данных до запуска. Риск кредитных потерь снижается ещё до продуктива.</p>
+      </div>
+      <div class="feature-card" data-anim="fade-up" data-delay="0.2">
+        <span class="feature-icon">🏛️</span>
+        <h3>Госрегистрация ПО</h3>
+        <p>Оба продукта внесены в Государственный реестр ПО Министерства юстиции РУз. Правообладатель — IT Consult Group.</p>
+      </div>
+      <div class="feature-card" data-anim="fade-up" data-delay="0.25">
+        <span class="feature-icon">💰</span>
+        <h3>Прозрачное ценообразование</h3>
+        <p>Аренда без ограничений по числу заявок от $2 000/мес. Конкуренты с аналогичным функционалом стоят в 2–3 раза дороже.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CYBERSECURITY ═══ -->
+<section class="section cyber-section" id="cyber">
+  <div class="container">
+    <div class="section-head" data-anim="fade-up">
+      <span class="section-eyebrow purple">Кибербезопасность</span>
+      <h2 class="section-title">Авторизованный представитель<br>Cyberus в Узбекистане</h2>
+      <p class="section-subtitle">ITCG — официальный представитель Cyberus в РУз. Поставляем полный спектр решений экосистемы: от мониторинга угроз и кибериспытаний до защиты от мошенничества и подготовки специалистов ИБ.</p>
+    </div>
+
+    <div class="cyberus-hero-block" data-anim="fade-up" data-delay="0.1">
+      <div style="position:relative;z-index:1;">
+        <div class="cyber-badge">
+          <span class="cyber-badge-dot"></span>
+          <span>Официальный представитель · Узбекистан</span>
+        </div>
+        <h3>Cyberus — суверенная<br>киберэкосистема</h3>
+        <p>Cyberus — фонд развития результативной кибербезопасности, объединяющий 14+ компаний: разработчиков решений, интеграторов и образовательных провайдеров. Экосистема охватывает три направления: оценку и мониторинг защищённости (CyberSense), внедрение решений (CyberAct) и развитие кадров (CyberMinds). ITCG внедряет эти решения для финансового сектора РУз силами собственных сертифицированных инженеров.</p>
+        <div class="cyber-facts">
+          <div class="cyber-fact">🛡️ 14+ компаний в экосистеме</div>
+          <div class="cyber-fact">🌍 20+ стран партнёров</div>
+          <div class="cyber-fact">🏦 Фокус: финансовый сектор РУз</div>
+        </div>
+      </div>
+      <div class="cyberus-logo-panel">
+        <div class="cyberus-wordmark"><span class="ca">Cy</span>berus</div>
+        <div class="cyberus-wordmark-sub">Cybersecurity Ecosystem</div>
+        <div class="cyberus-partner-badge">Партнёр ITCG</div>
+      </div>
+    </div>
+
+    <div class="cyber-engineers" data-anim="fade-up" data-delay="0.1">
+      <div class="cyber-engineers-icon">👨‍💻</div>
+      <div>
+        <h4>Собственные инженеры по кибербезопасности</h4>
+        <p>В команде ITCG работают сертифицированные специалисты по ИБ, которые внедряют решения Cyberus и обеспечивают безопасность собственных финтех-продуктов — ITC Scoring, ITC Gateway и Pulbering. Мы не перепродаём услуги — реализуем проекты сами: от аудита до внедрения и сопровождения.</p>
+      </div>
+    </div>
+
+    <!-- CyberSense -->
+    <div class="cyber-cluster-label" data-anim="fade-up">
+      <div class="ccl-line"></div>
+      <div class="ccl-content">
+        <span class="ccl-tag">CyberSense</span>
+        <span class="ccl-title">Оценка и мониторинг киберустойчивости</span>
+      </div>
+      <div class="ccl-line"></div>
+    </div>
+    <div class="cyber-grid">
+      <div class="cyber-card" data-anim="fade-up" data-delay="0">
+        <span class="cyber-card-icon">🎯</span>
+        <span class="cyber-card-tag">CyberQ</span>
+        <h4>Кибериспытания</h4>
+        <p>Контролируемые атаки Red Team на достижение недопустимых событий. Сценарии строятся от реальных угроз и бизнес-рисков — результат в KPI, понятных руководству и регулятору.</p>
+      </div>
+      <div class="cyber-card" data-anim="fade-up" data-delay="0.05">
+        <span class="cyber-card-icon">🔍</span>
+        <span class="cyber-card-tag">CyberScan</span>
+        <h4>Сканирование внешнего периметра</h4>
+        <p>Непрерывный мониторинг внешних уязвимостей, включая теневые ИТ-ресурсы и несанкционированные сервисы. Критично для МФО и банков с открытыми API.</p>
+      </div>
+      <div class="cyber-card" data-anim="fade-up" data-delay="0.1">
+        <span class="cyber-card-icon">🕵️</span>
+        <span class="cyber-card-tag">Cyber Intelligence</span>
+        <h4>Киберразведка и мониторинг угроз</h4>
+        <p>Раннее выявление атак и утечек — анализ даркнета, фишинга, скомпрометированных учётных данных и Telegram-каналов мошенников до реализации угрозы.</p>
+      </div>
+    </div>
+
+    <!-- CyberAct -->
+    <div class="cyber-cluster-label" data-anim="fade-up">
+      <div class="ccl-line"></div>
+      <div class="ccl-content">
+        <span class="ccl-tag">CyberAct</span>
+        <span class="ccl-title">Решения защиты для финансового сектора</span>
+      </div>
+      <div class="ccl-line"></div>
+    </div>
+    <div class="cyber-grid">
+      <div class="cyber-card" data-anim="fade-up" data-delay="0">
+        <span class="cyber-card-icon">🛡️</span>
+        <span class="cyber-card-tag">F6 · Fraud Protection</span>
+        <h4>Защита от финансового мошенничества</h4>
+        <p>Обнаружение и блокировка мошенничества в реальном времени. Защита клиентов МФО от скам-ресурсов, фишинговых атак и схем социальной инженерии.</p>
+      </div>
+      <div class="cyber-card" data-anim="fade-up" data-delay="0.05">
+        <span class="cyber-card-icon">🌐</span>
+        <span class="cyber-card-tag">F6 · Digital Risk Protection</span>
+        <h4>Защита цифровых активов и бренда</h4>
+        <p>Мониторинг и блокировка поддельных сайтов, мошеннических Telegram-ботов и фишинговых ресурсов, использующих название вашего бренда. Включает управляемый XDR.</p>
+      </div>
+      <div class="cyber-card" data-anim="fade-up" data-delay="0.1">
+        <span class="cyber-card-icon">📄</span>
+        <span class="cyber-card-tag">EVERYTAG</span>
+        <h4>Защита документов и предотвращение утечек</h4>
+        <p>Контроль доступа к конфиденциальным данным, защита от утечек через системы документооборота. Расследование инцидентов и выявление источника утечки.</p>
+      </div>
+    </div>
+
+    <!-- CyberMinds -->
+    <div class="cyber-cluster-label" data-anim="fade-up">
+      <div class="ccl-line"></div>
+      <div class="ccl-content">
+        <span class="ccl-tag">CyberMinds</span>
+        <span class="ccl-title">Развитие кадрового потенциала ИБ</span>
+      </div>
+      <div class="ccl-line"></div>
+    </div>
+    <div class="cyber-grid-2">
+      <div class="cyber-card" data-anim="fade-up" data-delay="0">
+        <span class="cyber-card-icon">🎓</span>
+        <span class="cyber-card-tag">CyberEducation</span>
+        <h4>Подготовка специалистов по ИБ</h4>
+        <p>Образовательная платформа с полным циклом подготовки — от базового уровня до специалистов Red/Blue Team и руководителей служб ИБ. Программы адаптируются под отраслевые требования и регулятора РУз. Самовоспроизводящаяся модель: через 3–5 лет страна поддерживает обучение своими силами.</p>
+      </div>
+      <div class="cyber-card" data-anim="fade-up" data-delay="0.05">
+        <span class="cyber-card-icon">🏋️</span>
+        <span class="cyber-card-tag">CyberRange</span>
+        <h4>Киберполигон и командные тренировки</h4>
+        <p>Безопасная среда для практической отработки атак и защиты: командные киберучения, симуляции инцидентов на функциональной копии инфраструктуры, CTF-соревнования и сертификация специалистов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REDTEST ═══ -->
+<section class="redtest-section" id="redtest">
+  <div class="redtest-blob redtest-blob-1"></div>
+  <div class="redtest-blob redtest-blob-2"></div>
+  <div class="container" style="position:relative;z-index:1;">
+
+    <div data-anim="fade-up">
+      <div class="redtest-eyebrow">
+        <span class="redtest-eyebrow-dot"></span>
+        <span>Уникальная услуга ITCG · Рынок Узбекистана</span>
+      </div>
+      <h2 class="redtest-title">Если не взломаем —<br>вы <span class="accent-breach">не платите</span></h2>
+      <p class="redtest-subtitle">
+        Кибериспытание — методология, которая впервые отвечает на вопрос, интересующий собственника и регулятора: сколько стоит взломать вашу систему в реальных деньгах? Независимые исследователи получают вознаграждение только за достижение недопустимого события. Не смогли — нулевой счёт.
+      </p>
+    </div>
+
+    <!-- Core promise metrics -->
+    <div class="redtest-promise" data-anim="fade-up" data-delay="0.08">
+      <div class="redtest-promise-lead">
+        <div class="pl-label">Главное обещание услуги</div>
+        Мы строим максимальное количество путей атаки до недопустимого события и измеряем стоимость самого дешёвого из них. Эта цифра и есть высота барьера защищённости вашей организации.
+      </div>
+      <div class="redtest-metric m1">
+        <div class="redtest-metric-val">N</div>
+        <div class="redtest-metric-label">Уникальных путей атаки до недопустимого события — ширина фронта</div>
+      </div>
+      <div class="redtest-metric m2">
+        <div class="redtest-metric-val">$min</div>
+        <div class="redtest-metric-label">Стоимость самого дешёвого пути взлома — измеримый барьер в деньгах</div>
+      </div>
+    </div>
+
+    <!-- 4-stage timeline -->
+    <div class="redtest-stages" data-anim="fade-up" data-delay="0.12">
+      <div class="redtest-stage">
+        <div class="redtest-stage-num">1</div>
+        <span class="redtest-stage-icon">🎯</span>
+        <h4>Определение недопустимых событий</h4>
+        <p>Совместно с руководством фиксируем: что для вас катастрофа — утечка данных, остановка выдач, компрометация счетов клиентов.</p>
+        <span class="redtest-stage-duration">2 недели</span>
+      </div>
+      <div class="redtest-stage">
+        <div class="redtest-stage-num">2</div>
+        <span class="redtest-stage-icon">🗺️</span>
+        <h4>Инструментальная оценка</h4>
+        <p>Аналитически простраиваем все пути атаки до каждого НС. Считаем минимальную стоимость взлома в долларах — карта уязвимостей с ценником.</p>
+        <span class="redtest-stage-duration">4 недели</span>
+      </div>
+      <div class="redtest-stage">
+        <div class="redtest-stage-num">3</div>
+        <span class="redtest-stage-icon">⚔️</span>
+        <h4>Натурные испытания</h4>
+        <p>Независимые исследователи атакуют реальную инфраструктуру. Вознаграждение — только за достижение недопустимого события. Уровень угрозы вы регулируете сами.</p>
+        <span class="redtest-stage-duration">до 6 месяцев</span>
+      </div>
+      <div class="redtest-stage">
+        <div class="redtest-stage-num">4</div>
+        <span class="redtest-stage-icon">📜</span>
+        <h4>Отчёт и сертификат</h4>
+        <p>Финальный отчёт с конкретной цифрой стоимости атаки, дорожной картой устранения и сертификатом киберустойчивости — для совета директоров и регулятора.</p>
+        <span class="redtest-stage-duration">2 недели</span>
+      </div>
+    </div>
+
+    <!-- Outcomes -->
+    <div class="redtest-outcomes" data-anim="fade-up" data-delay="0.16">
+      <div class="redtest-outcome success">
+        <span class="redtest-outcome-icon">🔓</span>
+        <h4>Взломали</h4>
+        <p>Получаете полный отчёт: вектор атаки, использованные уязвимости, точная стоимость взлома в деньгах, хронология проникновения. Дорожная карта устранения с приоритетами и опциональное сопровождение.</p>
+        <span class="redtest-outcome-tag">→ Оплата за результат обследования</span>
+      </div>
+      <div class="redtest-outcome safe">
+        <span class="redtest-outcome-icon">🔒</span>
+        <h4>Не взломали</h4>
+        <p>Ваша инфраструктура прошла реальные атаки и устояла. Выдаём сертификат киберустойчивости с подтверждённым барьером стоимости атаки — официальный документ для регулятора и совета директоров.</p>
+        <span class="redtest-outcome-tag">→ Платить не нужно. Сертификат — бесплатно.</span>
+      </div>
+    </div>
+
+    <!-- Cluster / Grant model hint -->
+    <div class="redtest-cluster" data-anim="fade-up" data-delay="0.2">
+      <span class="redtest-cluster-icon">🏛️</span>
+      <div>
+        <h5>Модель для группы МФО — грантовые кибериспытания</h5>
+        <p>Центральный банк или отраслевая ассоциация могут финансировать кибериспытания централизованно для группы лицензированных МФО. Единая методология, сопоставимые результаты по всему рынку, отраслевой рейтинг киберустойчивости. Аналогичная программа уже запущена на федеральном уровне в России для сектора ТЭК.</p>
+      </div>
+    </div>
+
+    <!-- Perks -->
+    <div class="redtest-perks" data-anim="fade-up" data-delay="0.22">
+      <div class="redtest-perk">
+        <span class="redtest-perk-icon">🤝</span>
+        <span class="redtest-perk-text">NDA на старте</span>
+      </div>
+      <div class="redtest-perk">
+        <span class="redtest-perk-icon">🚫</span>
+        <span class="redtest-perk-text">Нулевой риск для заказчика</span>
+      </div>
+      <div class="redtest-perk">
+        <span class="redtest-perk-icon">📊</span>
+        <span class="redtest-perk-text">Отчёт по CVSS при взломе</span>
+      </div>
+      <div class="redtest-perk">
+        <span class="redtest-perk-icon">🏆</span>
+        <span class="redtest-perk-text">Сертификат киберустойчивости</span>
+      </div>
+      <div class="redtest-perk">
+        <span class="redtest-perk-icon">📈</span>
+        <span class="redtest-perk-text">Стоимость атаки в деньгах</span>
+      </div>
+    </div>
+
+    <div style="margin-top:44px;text-align:center;" data-anim="fade-up" data-delay="0.26">
+      <a href="#contact" class="btn btn-primary btn-lg" style="display:inline-flex;gap:10px;align-items:center;">
+        Заказать кибериспытание
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,0.65);">Доступно для МФО, банков и холдинговых структур · Первичная консультация бесплатна</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section class="section pricing-section" id="pricing">
+  <div class="container">
+    <div class="section-head center" data-anim="fade-up">
+      <span class="section-eyebrow" style="text-align:center;display:block;">Стоимость</span>
+      <h2 class="section-title">Прозрачное ценообразование<br>на ИТ-платформу</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Аренда без ограничений по числу заявок. Конкуренты с аналогичным функционалом стоят в 2–3 раза дороже.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card" data-anim="fade-up" data-delay="0">
+        <div class="price-name">Аренда ПО</div>
+        <div class="price-val"><sup>$</sup>2 000</div>
+        <div class="price-period">в месяц · без ограничений по заявкам</div>
+        <ul class="price-list">
+          <li>ITC Scoring + ITC Gateway</li>
+          <li>Неограниченное количество заявок</li>
+          <li>Веб-кабинет настройки продуктов</li>
+          <li>Базовая BI-аналитика</li>
+          <li>Техническая поддержка</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Обсудить условия</a>
+      </div>
+      <div class="price-card featured" data-anim="fade-up" data-delay="0.05">
+        <div class="price-badge">Полное владение</div>
+        <div class="price-name">Покупка ПО</div>
+        <div class="price-val"><sup>$</sup>120 000</div>
+        <div class="price-period">единовременно · с исходным кодом</div>
+        <ul class="price-list">
+          <li>Полный исходный код платформы</li>
+          <li>Передача прав на использование</li>
+          <li>Сопровождение 12 месяцев включено</li>
+          <li>BI-система ($5 000 единовременно)</li>
+          <li>Кастомизация под ваши требования</li>
+        </ul>
+        <a href="#contact" class="price-cta solid">Запросить КП</a>
+      </div>
+      <div class="price-card" data-anim="fade-up" data-delay="0.1">
+        <div class="price-name">Сопровождение</div>
+        <div class="price-val"><sup>$</sup>15 000</div>
+        <div class="price-period">в год · после покупки</div>
+        <ul class="price-list">
+          <li>Обновления платформы</li>
+          <li>Новые коннекторы и источники</li>
+          <li>Доработки по запросу</li>
+          <li>Приоритетная поддержка</li>
+          <li>Консультации по скоринговым моделям</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Обсудить условия</a>
+      </div>
+    </div>
+    <p class="price-note">* Конкуренты: аналогичный функционал при покупке — от $150 000. Аренда с лимитом до 25 000 заявок — от $6 500/мес.</p>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-block" data-anim="zoom-in">
+      <h2>Обсудим ваш проект?</h2>
+      <p>Расскажите о задаче — покажем платформу в работе и предложим решение</p>
+      <div class="cta-actions">
+        <a href="tel:+998901330808" class="btn btn-primary btn-lg">
+          📞 +998 90 133 08 08
+        </a>
+        <a href="mailto:info@itcg.uz" class="btn btn-outline btn-lg">
+          ✉️ info@itcg.uz
+        </a>
+      </div>
+      <p style="margin-top:24px;font-size:14px;color:rgba(255,255,255,0.65);">
+        📍 г. Ташкент, Мирабадский район, ул. Садыка Азимова, 68
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg class="footer-mark" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="fb" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2B5FFF"/><stop offset="100%" stop-color="#0030EE"/></linearGradient>
+              <linearGradient id="ft" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00EDBB"/><stop offset="100%" stop-color="#00CC80"/></linearGradient>
+            </defs>
+            <rect width="260" height="260" rx="52" fill="url(#fb)"/>
+            <rect x="38" y="30" width="184" height="14" rx="7" fill="url(#ft)"/>
+            <text x="130" y="118" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="100" fill="white" text-anchor="middle" letter-spacing="-4">IT</text>
+            <rect x="38" y="133" width="184" height="2" rx="1" fill="rgba(255,255,255,0.15)"/>
+            <text x="130" y="224" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="100" fill="rgba(255,255,255,0.88)" text-anchor="middle" letter-spacing="-4">CG</text>
+          </svg>
+          <div class="footer-logo-name">IT Consult Group</div>
+        </div>
+        <p class="footer-about">Финтех-компания в Ташкенте. Разрабатываем IT-платформу для финансового сектора и собственные кредитные продукты для МФО и банков Узбекистана.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Telegram" title="Telegram">✈</a>
+          <a href="#" aria-label="Instagram" title="Instagram">◉</a>
+          <a href="#" aria-label="LinkedIn" title="LinkedIn">in</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Продукты</h4>
+        <ul>
+          <li><a href="#fin-products">Pulbering.uz</a></li>
+          <li><a href="#tech-products">ITC Scoring</a></li>
+          <li><a href="#tech-products">ITC Gateway</a></li>
+          <li><a href="#cyber">Кибербезопасность</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <ul>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#pricing">Ценообразование</a></li>
+          <li><a href="#sources">Источники данных</a></li>
+          <li><a href="#contact">Связаться</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <div class="footer-contacts">
+          <a class="footer-contact-item" href="tel:+998901330808">
+            <span class="footer-contact-icon">📞</span>
+            +998 90 133 08 08
+          </a>
+          <a class="footer-contact-item" href="mailto:info@itcg.uz">
+            <span class="footer-contact-icon">✉️</span>
+            info@itcg.uz
+          </a>
+          <a class="footer-contact-item" href="https://pulbering.uz" target="_blank" rel="noopener">
+            <span class="footer-contact-icon">🌐</span>
+            pulbering.uz
+          </a>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">📍</span>
+            Ташкент, Мирабадский р-н, ул. Садыка Азимова, 68
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">🕐</span>
+            Пн–Пт: 9:00–18:00
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-bottom-copy">© 2024–2026 IT Consult Group. Все права защищены.</span>
+      <span class="footer-bottom-reg">ПО зарегистрировано в Госреестре Минюст РУз · DGU 42333 / DGU 42334</span>
+    </div>
+  </div>
+</footer>
+
+<!-- GSAP animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  // ── Scroll animations
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.querySelectorAll('[data-anim]').forEach(el => {
+    const delay = parseFloat(el.dataset.delay || 0);
+    const type  = el.dataset.anim;
+
+    const fromVars = { opacity: 0 };
+    if (type === 'fade-up')   fromVars.y = 28;
+    if (type === 'fade-left') fromVars.x = 28;
+    if (type === 'zoom-in')   fromVars.scale = 0.95;
+
+    gsap.fromTo(el,
+      fromVars,
+      {
+        opacity: 1, y: 0, x: 0, scale: 1,
+        duration: 0.65,
+        delay,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        }
+      }
+    );
+  });
+
+  // ── Animated counters
+  document.querySelectorAll('[data-counter]').forEach(el => {
+    const target = parseInt(el.dataset.counter);
+    gsap.from({ val: 0 }, {
+      val: target,
+      duration: 1.8,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+      onUpdate: function() {
+        el.textContent = Math.round(this.targets()[0].val);
+      }
+    });
+  });
+
+  // ── Header scroll effect
+  const header = document.querySelector('.site-header');
+  window.addEventListener('scroll', () => {
+    header.style.boxShadow = window.scrollY > 40
+      ? '0 4px 24px rgba(76,123,248,0.12)'
+      : 'none';
+  });
+
+  // ── Mobile menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileNav  = document.getElementById('mobile-nav');
+  const body       = document.body;
+
+  function openMenu() {
+    menuToggle.classList.add('open');
+    mobileNav.classList.add('open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    mobileNav.setAttribute('aria-hidden', 'false');
+    body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    menuToggle.classList.remove('open');
+    mobileNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    mobileNav.setAttribute('aria-hidden', 'true');
+    body.style.overflow = '';
+  }
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Close on nav link click
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (mobileNav.classList.contains('open') &&
+        !mobileNav.contains(e.target) &&
+        !menuToggle.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>
+</body>
+</html>

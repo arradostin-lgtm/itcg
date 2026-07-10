@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260">
+  <defs>
+    <!-- Main blue gradient matching original logo -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2B5FFF"/>
+      <stop offset="100%" stop-color="#0030EE"/>
+    </linearGradient>
+    <!-- Teal accent (same as original) -->
+    <linearGradient id="teal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00EDBB"/>
+      <stop offset="100%" stop-color="#00CC80"/>
+    </linearGradient>
+    <!-- White glow for letters -->
+    <filter id="glow" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="260" height="260" rx="52" fill="url(#bg)"/>
+
+  <!-- Inner subtle highlight -->
+  <rect x="1" y="1" width="258" height="128" rx="51" fill="rgba(255,255,255,0.04)"/>
+
+  <!-- Teal accent bar (top, same proportion as ITC original) -->
+  <rect x="38" y="30" width="184" height="14" rx="7" fill="url(#teal)"/>
+
+  <!-- ═══ TOP ROW: I T ═══ -->
+  <text
+    x="130"
+    y="118"
+    font-family="'Arial Black', 'Arial Bold', Arial, sans-serif"
+    font-weight="900"
+    font-size="100"
+    fill="white"
+    text-anchor="middle"
+    letter-spacing="-4"
+    filter="url(#glow)"
+  >IT</text>
+
+  <!-- Thin separator -->
+  <rect x="38" y="133" width="184" height="2" rx="1" fill="rgba(255,255,255,0.15)"/>
+
+  <!-- ═══ BOTTOM ROW: C G ═══ -->
+  <text
+    x="130"
+    y="224"
+    font-family="'Arial Black', 'Arial Bold', Arial, sans-serif"
+    font-weight="900"
+    font-size="100"
+    fill="rgba(255,255,255,0.90)"
+    text-anchor="middle"
+    letter-spacing="-4"
+  >CG</text>
+
+</svg>
