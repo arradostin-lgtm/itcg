@@ -314,11 +314,11 @@
 
     .about-visual { position: relative; }
     .about-cards {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
     }
     .about-card {
       background: var(--white); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px;
+      border-radius: 16px; padding: 28px;
       transition: box-shadow .25s, transform .2s;
     }
     .about-card:hover { box-shadow: 0 8px 28px rgba(26,79,255,0.1); transform: translateY(-3px); }
@@ -488,7 +488,7 @@
     /* ═══════════════════════════════
        CYBERSECURITY
     ═══════════════════════════════ */
-    .cyber-section { background: var(--bg-section); }
+    .cyber-section { background: var(--white); }
 
     .cyber-cluster-label {
       display: flex; align-items: center; gap: 14px;
@@ -569,8 +569,8 @@
     .cpd-line { flex: 1; height: 1px; background: var(--border); }
     .cpd-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
 
-    .cyber-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
-    .cyber-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .cyber-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 18px; }
+    .cyber-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 
     .cyber-card {
       background: #F3F0FF; border: 1px solid #C8BEFF;
@@ -622,7 +622,7 @@
     .redtest-eyebrow span { font-size: 12px; font-weight: 700; color: var(--teal); }
 
     .redtest-title {
-      font-size: 50px; font-weight: 900; color: var(--white);
+      font-size: 46px; font-weight: 900; color: var(--white);
       letter-spacing: -2px; line-height: 1.08; margin-bottom: 16px;
     }
     .redtest-title .accent-breach { color: var(--teal); }
@@ -739,27 +739,16 @@
     .redtest-perk-icon { font-size: 18px; flex-shrink: 0; }
     .redtest-perk-text { font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.90); }
 
-    @media (max-width: 1024px) {
-      .redtest-stages { grid-template-columns: repeat(2, 1fr); }
-      .redtest-stages::before { display: none; }
-      .redtest-promise { grid-template-columns: 1fr; }
-      .redtest-outcomes { grid-template-columns: 1fr; }
-      .redtest-title { font-size: 36px; }
-    }
-    @media (max-width: 768px) {
-      .redtest-stages { grid-template-columns: 1fr; }
-      .redtest-cluster { flex-direction: column; gap: 10px; }
-    }
 
     /* ═══════════════════════════════
        FEATURES
     ═══════════════════════════════ */
     .features-section { background: var(--white); }
 
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .feature-card {
       background: var(--bg-section); border: 1px solid var(--border);
-      border-radius: 18px; padding: 32px;
+      border-radius: 16px; padding: 28px;
       transition: box-shadow .25s, transform .2s, border-color .2s;
     }
     .feature-card:hover {
@@ -889,12 +878,22 @@
        RESPONSIVE
     ═══════════════════════════════ */
 
+    /* ── Large screens (≥1440px) */
+    @media (min-width: 1440px) {
+      .container { max-width: 1340px; }
+      .hero h1 { font-size: 60px; }
+      .section-title { font-size: 44px; }
+      .redtest-title { font-size: 50px; }
+    }
+
     /* ── Tablet landscape / small laptop (≤1100px) */
     @media (max-width: 1100px) {
       .nav { gap: 18px; }
       .nav a { font-size: 13px; }
+      .section { padding: 80px 0; }
+      .section-title { font-size: 36px; }
       .hero-layout { grid-template-columns: 1fr; gap: 48px; }
-      .hero h1 { font-size: 42px; }
+      .hero h1 { font-size: 46px; }
       .hero-panel { max-width: 520px; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .pulbering-card { grid-template-columns: 1fr; gap: 32px; padding: 40px; }
@@ -904,10 +903,15 @@
       .cyber-grid { grid-template-columns: 1fr 1fr; }
       .features-grid { grid-template-columns: 1fr 1fr; }
       .sources-grid { grid-template-columns: repeat(3, 1fr); }
-      .section { padding: 80px 0; }
+      .cyberus-hero-block { grid-template-columns: 1fr; gap: 32px; padding: 40px 48px; }
+      .cyberus-logo-panel { display: none; }
+      .redtest-stages { grid-template-columns: repeat(2, 1fr); }
+      .redtest-stages::before { display: none; }
+      .redtest-promise { grid-template-columns: 1fr 1fr; }
+      .redtest-title { font-size: 40px; }
     }
 
-    /* ── Tablet portrait / large phone landscape (≤768px) */
+    /* ── Tablet portrait (≤768px) */
     @media (max-width: 768px) {
       .nav { display: none; }
       .header-phone { display: none; }
@@ -917,20 +921,21 @@
       .section-tight { padding: 52px 0; }
       .section-title { font-size: 30px; letter-spacing: -1px; }
       .section-subtitle { font-size: 15px; }
+      .section-head { margin-bottom: 40px; }
       .hero { padding: 104px 20px 68px; }
-      .hero h1 { font-size: 34px; letter-spacing: -1.5px; }
+      .hero h1 { font-size: 36px; letter-spacing: -1.5px; }
       .hero-desc { font-size: 15px; }
       .hero-actions { flex-wrap: wrap; gap: 10px; }
       .hero-stats { flex-wrap: wrap; }
       .hero-stat { min-width: 45%; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); }
       .hero-stat:nth-last-child(-n+2) { border-bottom: none; }
       .hero-panel { display: none; }
-      .about-cards { grid-template-columns: 1fr; gap: 12px; }
+      .about-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
       .platform-card { padding: 28px; }
       .pricing-grid { grid-template-columns: 1fr; }
       .sources-grid { grid-template-columns: repeat(2, 1fr); }
-      .features-grid { grid-template-columns: 1fr; }
-      .cyber-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .cyber-grid { grid-template-columns: 1fr 1fr; }
       .cyber-grid-2 { grid-template-columns: 1fr; }
       .cyberus-hero-block { grid-template-columns: 1fr; padding: 32px; gap: 24px; }
       .cyberus-logo-panel { display: none; }
@@ -944,6 +949,10 @@
       .pulbering-card { padding: 32px 28px; }
       .pulbering-card h3 { font-size: 28px; }
       .tsb-inner { gap: 20px; }
+      .redtest-promise { grid-template-columns: 1fr; }
+      .redtest-outcomes { grid-template-columns: 1fr; }
+      .redtest-cluster { flex-direction: column; gap: 10px; }
+      .redtest-title { font-size: 32px; }
     }
 
     /* ── Phones portrait (≤480px) */
@@ -952,33 +961,41 @@
       .section { padding: 52px 0; }
       .section-tight { padding: 40px 0; }
       .section-title { font-size: 26px; }
+      .section-head { margin-bottom: 32px; }
       .hero { padding: 90px 16px 56px; }
       .hero h1 { font-size: 28px; letter-spacing: -1px; }
       .hero-desc { font-size: 14px; margin-bottom: 28px; }
       .hero-badge span { font-size: 11px; }
       .hero-actions { flex-direction: column; align-items: stretch; }
       .hero-actions .btn { justify-content: center; }
-      .hero-stat-num { font-size: 22px; }
+      .hero-stats { flex-direction: column; }
+      .hero-stat { min-width: 100%; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
+      .hero-stat:last-child { border-bottom: none !important; }
+      .hero-stat-num { font-size: 24px; }
       .hero-stat-label { font-size: 10px; }
-      .about-stat-num { font-size: 32px; }
+      .about-cards { grid-template-columns: 1fr; gap: 10px; }
       .about-card { padding: 20px; }
+      .about-stat-num { font-size: 32px; }
       .pulbering-card { padding: 24px 20px; border-radius: 18px; }
       .pulbering-card h3 { font-size: 24px; }
       .platform-card { padding: 22px; border-radius: 16px; }
       .platform-card h3 { font-size: 22px; }
       .sources-grid { grid-template-columns: 1fr 1fr; }
+      .cyber-grid { grid-template-columns: 1fr; }
       .cyber-card { padding: 22px; }
       .cyberus-hero-block { padding: 24px 20px; border-radius: 18px; }
       .cyberus-hero-block h3 { font-size: 24px; }
       .cyber-engineers { padding: 22px; border-radius: 16px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { padding: 22px; }
       .redtest-section { padding: 56px 0; }
+      .redtest-stages { grid-template-columns: 1fr; }
       .redtest-title { font-size: 26px !important; letter-spacing: -0.5px; }
       .redtest-subtitle { font-size: 14px; }
       .redtest-outcome { padding: 24px 20px; }
       .redtest-outcome h4 { font-size: 17px; }
       .redtest-perks { flex-direction: column; }
       .redtest-cluster { padding: 18px 20px; }
-      .feature-card { padding: 24px; }
       .price-card { padding: 28px; }
       .cta-section { padding: 0 16px 56px; }
       .cta-block { padding: 36px 20px; border-radius: 18px; }
@@ -994,12 +1011,11 @@
       .hero h1 { font-size: 24px; }
       .section-title { font-size: 22px; }
       .sources-grid { grid-template-columns: 1fr; }
-      .hero-stat { min-width: 100%; }
       .redtest-title { font-size: 22px !important; }
       .cta-block h2 { font-size: 22px; }
     }
 
-    /* ── Hover suppression on touch devices */
+    /* ── Touch devices — no hover transforms */
     @media (hover: none) {
       .platform-card:hover,
       .about-card:hover,
