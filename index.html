@@ -333,9 +333,33 @@
     .form-status.ok { color: #34D399; }
     .form-status.err { color: #F87171; }
 
-    /* ---- Questionnaire link ---- */
-    .quiz-link { display: inline-block; margin-top: 10px; font-size: 14px; color: rgba(255,255,255,.6); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; background: none; border: none; font-family: inherit; }
-    .quiz-link:hover { color: rgba(255,255,255,.9); }
+    /* ---- Questionnaire button in CTA ---- */
+    .quiz-link {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 4px;
+      padding: 14px 28px; border-radius: 12px; cursor: pointer; font-family: inherit;
+      font-size: 16px; font-weight: 700; letter-spacing: -.2px;
+      background: rgba(255,255,255,.12); border: 2px solid rgba(255,255,255,.35);
+      color: #fff; transition: background .2s, border-color .2s, transform .15s;
+    }
+    .quiz-link:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.6); transform: translateY(-1px); }
+
+    /* ---- Floating quiz button ---- */
+    .fab-quiz {
+      position: fixed; bottom: 28px; right: 28px; z-index: 8000;
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 50px;
+      background: var(--blue); color: #fff; border: none; cursor: pointer;
+      font-family: inherit; font-size: 15px; font-weight: 700;
+      box-shadow: 0 6px 28px rgba(37,99,235,.45);
+      transition: transform .2s, box-shadow .2s, opacity .3s;
+      opacity: 0; pointer-events: none;
+    }
+    .fab-quiz.visible { opacity: 1; pointer-events: auto; }
+    .fab-quiz:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(37,99,235,.55); }
+    .fab-quiz .fab-icon { font-size: 18px; line-height: 1; }
+    @media (max-width: 480px) {
+      .fab-quiz { bottom: 18px; right: 18px; padding: 12px 18px; font-size: 14px; }
+    }
 
     /* ---- Modal ---- */
     .modal-overlay {
@@ -880,13 +904,18 @@
       </form>
 
       <button class="quiz-link" id="open-quiz">
-        Или заполните анкету КиберЧекап онлайн →
+        <span class="fab-icon">📋</span> Заполнить анкету КиберЧекап онлайн
       </button>
 
       <p class="cta-meta">📞 +998 90 133 08 08 · ✉️ info@itcg.uz · Пн–Пт 9:00–18:00</p>
     </div>
   </div>
 </section>
+
+<!-- ═══ FLOATING QUIZ BUTTON ═══ -->
+<button class="fab-quiz" id="fab-quiz" aria-label="Пройти анкету КиберЧекап">
+  <span class="fab-icon">📋</span> Пройти анкету
+</button>
 
 <!-- ═══ QUESTIONNAIRE MODAL ═══ -->
 <div class="modal-overlay" id="quiz-modal" role="dialog" aria-modal="true" aria-label="Анкета КиберЧекап">
@@ -1153,7 +1182,23 @@
   function openQuiz()  { quizModal.classList.add('open');  document.body.style.overflow = 'hidden'; showStep(1); }
   function closeQuiz() { quizModal.classList.remove('open'); document.body.style.overflow = ''; }
 
-  document.getElementById('open-quiz').addEventListener('click', openQuiz);
+  // ─── Floating quiz button visibility ────────────────────────
+  const fabQuiz   = document.getElementById('fab-quiz');
+  const ctaSection = document.getElementById('contact');
+
+  function updateFab() {
+    const scrolled  = window.scrollY > 400;
+    const ctaRect   = ctaSection.getBoundingClientRect();
+    const ctaVisible = ctaRect.top < window.innerHeight && ctaRect.bottom > 0;
+    fabQuiz.classList.toggle('visible', scrolled && !ctaVisible);
+  }
+  window.addEventListener('scroll', updateFab, { passive: true });
+  updateFab();
+
+  // All quiz triggers
+  [document.getElementById('open-quiz'), fabQuiz].forEach(btn => {
+    btn.addEventListener('click', openQuiz);
+  });
   document.getElementById('close-quiz').addEventListener('click', closeQuiz);
   quizModal.addEventListener('click', e => { if (e.target === quizModal) closeQuiz(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && quizModal.classList.contains('open')) closeQuiz(); });
