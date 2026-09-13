@@ -444,12 +444,57 @@ footer{padding-block:38px;}
 <nav class="nav">
   <div class="wrap nav-in">
     <a href="#" class="logo"><div class="logo-pulse"></div>SCAMNET</a>
-    <div class="nav-actions">
+    <div class="nav-actions" id="nav-actions">
       <button class="nav-btn" type="button" onclick="document.getElementById('reg').scrollIntoView({behavior:'smooth'})">Войти</button>
       <button class="nav-btn-primary" type="button" onclick="document.getElementById('reg').scrollIntoView({behavior:'smooth'})">Регистрация</button>
     </div>
   </div>
 </nav>
+
+<!-- Profile dropdown -->
+<div id="profile-dropdown" style="display:none;position:fixed;top:58px;right:20px;z-index:500;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:8px;min-width:240px;box-shadow:0 12px 40px rgba(0,0,0,.15);">
+  <div style="padding:12px 12px 14px;border-bottom:1px solid var(--border);margin-bottom:8px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img id="pd-avatar" src="" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" referrerpolicy="no-referrer">
+      <div>
+        <div id="pd-name" style="font-size:14px;font-weight:600;color:var(--text);"></div>
+        <div id="pd-email" style="font-size:12px;color:var(--text-3);"></div>
+      </div>
+    </div>
+  </div>
+  <button onclick="openSettings()" style="width:100%;text-align:left;padding:9px 12px;border-radius:8px;border:none;background:none;cursor:pointer;font-size:14px;color:var(--text-2);font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px;" onmouseover="this.style.background='var(--bg-2)'" onmouseout="this.style.background='none'">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    Настройки профиля
+  </button>
+  <button onclick="clearToken();location.reload();" style="width:100%;text-align:left;padding:9px 12px;border-radius:8px;border:none;background:none;cursor:pointer;font-size:14px;color:#cc1c1c;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px;" onmouseover="this.style.background='#fdeaea'" onmouseout="this.style.background='none'">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Выйти
+  </button>
+</div>
+
+<!-- Settings modal -->
+<div id="settings-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:0;max-width:500px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.18);overflow:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--text);">Настройки профиля</div>
+      <button onclick="document.getElementById('settings-modal').style.display='none'" style="background:none;border:none;cursor:pointer;color:var(--text-3);font-size:22px;line-height:1;">×</button>
+    </div>
+    <div style="padding:28px;">
+      <div style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:12px;margin-bottom:20px;">
+        <img id="sm-avatar" src="" style="width:48px;height:48px;border-radius:50%;" referrerpolicy="no-referrer">
+        <div>
+          <div id="sm-name" style="font-size:15px;font-weight:600;color:var(--text);"></div>
+          <div id="sm-email" style="font-size:13px;color:var(--text-3);"></div>
+        </div>
+      </div>
+      <!-- Тарифный план — будет заполнен позже -->
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;color:var(--text-3);font-size:14px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 10px;display:block;opacity:.4;"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Информация о тарифе появится здесь
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1173,17 +1218,33 @@ async function loadUser(token) {
   } catch(e) {}
 }
 
+let _currentUser = null;
+
 function showLoggedIn(user) {
-  // Update Google button → show user name
-  const btn = document.getElementById('btn-google-login');
-  if (btn) {
-    btn.innerHTML = (user.avatar_url
-      ? `<img src="${user.avatar_url}" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" referrerpolicy="no-referrer">`
-      : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`
-    ) + ` ${user.name || user.email} <span style="font-size:11px;color:var(--text-3);margin-left:4px;">(${user.checks_used}/${user.checks_limit})</span>`;
-    btn.onclick = null;
+  _currentUser = user;
+
+  // Replace nav buttons with profile avatar button
+  const nav = document.getElementById('nav-actions');
+  if (nav) {
+    nav.innerHTML = `<button id="nav-profile-btn" type="button" style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 12px 6px 8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text);">
+      ${user.avatar_url ? `<img src="${user.avatar_url}" style="width:24px;height:24px;border-radius:50%;object-fit:cover;" referrerpolicy="no-referrer">` : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`}
+      ${user.name ? user.name.split(' ')[0] : user.email}
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>`;
+    document.getElementById('nav-profile-btn').addEventListener('click', toggleProfileDropdown);
   }
-  // Update form card
+
+  // Fill dropdown
+  if (user.avatar_url) {
+    document.getElementById('pd-avatar').src = user.avatar_url;
+    document.getElementById('sm-avatar').src = user.avatar_url;
+  }
+  document.getElementById('pd-name').textContent = user.name || 'Пользователь';
+  document.getElementById('pd-email').textContent = user.email;
+  document.getElementById('sm-name').textContent = user.name || 'Пользователь';
+  document.getElementById('sm-email').textContent = user.email;
+
+  // Update registration section
   const card = document.querySelector('.reg-form-card');
   if (card) {
     card.innerHTML = `
@@ -1191,14 +1252,32 @@ function showLoggedIn(user) {
         ${user.avatar_url ? `<img src="${user.avatar_url}" style="width:64px;height:64px;border-radius:50%;margin-bottom:12px;" referrerpolicy="no-referrer">` : ''}
         <div style="font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px;">${user.name || 'Пользователь'}</div>
         <div style="font-size:13px;color:var(--text-3);margin-bottom:20px;">${user.email}</div>
-        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
           <span style="font-size:13px;color:var(--text-2);">Проверок в этом месяце</span>
           <span style="font-family:'DM Mono',monospace;font-weight:600;color:var(--text);">${user.checks_used} / ${user.checks_limit}</span>
         </div>
-        <button onclick="clearToken();location.reload();" style="font-size:13px;color:var(--text-3);background:none;border:none;cursor:pointer;text-decoration:underline;">Выйти</button>
+        <div style="display:flex;gap:10px;justify-content:center;">
+          <button onclick="openSettings()" style="font-size:13px;padding:8px 16px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);cursor:pointer;font-family:'DM Sans',sans-serif;">Настройки</button>
+          <button onclick="clearToken();location.reload();" style="font-size:13px;padding:8px 16px;border-radius:7px;border:none;background:#fdeaea;color:#cc1c1c;cursor:pointer;font-family:'DM Sans',sans-serif;">Выйти</button>
+        </div>
       </div>`;
   }
 }
+
+function toggleProfileDropdown() {
+  const dd = document.getElementById('profile-dropdown');
+  dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+}
+function openSettings() {
+  document.getElementById('profile-dropdown').style.display = 'none';
+  document.getElementById('settings-modal').style.display = 'flex';
+}
+document.addEventListener('click', function(e) {
+  const dd = document.getElementById('profile-dropdown');
+  if (dd && dd.style.display === 'block' && !dd.contains(e.target) && !e.target.closest('#nav-profile-btn')) {
+    dd.style.display = 'none';
+  }
+});
 
 // ── Google login ──────────────────────────────────────────────────────────────
 document.getElementById('btn-google-login').addEventListener('click', function() {
