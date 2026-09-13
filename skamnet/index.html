@@ -249,6 +249,46 @@ footer{padding-block:38px;}
 .foot-links a{font-size:13px;color:var(--text-3);text-decoration:none;}
 .foot-links a:hover{color:var(--text-2);}
 
+/* GLOBAL FRAUD STATS */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px;}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 20px;}
+.kpi-n{font-family:'Barlow Condensed',sans-serif;font-size:46px;font-weight:800;line-height:1;color:var(--text);margin-bottom:8px;}
+.kpi-n span{font-size:20px;font-weight:600;color:var(--text-2);margin-left:3px;}
+.kpi-l{font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px;line-height:1.4;}
+.kpi-src{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);letter-spacing:.3px;}
+.fraud-types{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;margin-top:20px;}
+.fraud-types-t{font-weight:600;font-size:14px;color:var(--text);margin-bottom:20px;}
+.fbar-list{display:flex;flex-direction:column;gap:12px;}
+.fbar-row{display:flex;align-items:center;gap:14px;}
+.fbar-label{font-size:13px;color:var(--text-2);width:230px;flex-shrink:0;}
+.fbar-track{flex:1;background:var(--bg-2);border-radius:3px;height:6px;overflow:hidden;}
+.fbar-fill{height:100%;border-radius:3px;opacity:.85;}
+.fbar-val{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--text-3);width:92px;text-align:right;flex-shrink:0;}
+.stat-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
+.stat-detail-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;}
+.sd-t{font-weight:600;font-size:14px;color:var(--text);margin-bottom:18px;}
+.sd-note{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);margin-top:16px;letter-spacing:.3px;}
+.task-bars{display:flex;flex-direction:column;gap:13px;}
+.task-bar-row{display:flex;align-items:center;gap:12px;}
+.task-bar-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);width:36px;flex-shrink:0;}
+.task-bar-track{flex:1;background:var(--bg-2);border-radius:3px;height:8px;overflow:hidden;}
+.task-bar-fill{height:100%;border-radius:3px;background:#10B981;opacity:.85;}
+.task-bar-val{font-size:12px;color:var(--text-2);width:72px;text-align:right;flex-shrink:0;}
+.task-bar-val.danger{color:var(--danger);font-weight:600;}
+.platform-rows{display:flex;flex-direction:column;gap:11px;}
+.plat-row{display:flex;align-items:center;gap:12px;}
+.plat-name{font-size:13px;color:var(--text-2);width:120px;flex-shrink:0;}
+.plat-track{flex:1;background:var(--bg-2);border-radius:3px;height:6px;overflow:hidden;}
+.plat-fill{height:100%;border-radius:3px;background:var(--accent-br);opacity:.75;}
+.plat-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);width:30px;text-align:right;flex-shrink:0;}
+.stories-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;}
+.story-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 20px;display:flex;flex-direction:column;gap:10px;}
+.story-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--text-3);}
+.story-t{font-weight:600;font-size:15px;color:var(--text);}
+.story-p{font-size:13px;color:var(--text-2);line-height:1.6;flex:1;}
+.story-link{font-size:12px;color:var(--accent-br);text-decoration:none;font-weight:500;}
+.story-link:hover{text-decoration:underline;}
+
 @media(max-width:740px){
   .hero-grid,.ai-grid,.voice-grid{grid-template-columns:1fr;gap:36px;}
   .stats-row,.threats,.pricing-grid{grid-template-columns:1fr;}
@@ -257,6 +297,9 @@ footer{padding-block:38px;}
   .cta-in{flex-direction:column;align-items:flex-start;}
   .risk-count{width:auto;}
   .vf-note{display:none;}
+  .kpi-row{grid-template-columns:repeat(2,1fr);}
+  .fbar-label{width:140px;}
+  .stat-detail-grid,.stories-row{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -335,6 +378,144 @@ footer{padding-block:38px;}
     <div class="stat"><div class="stat-n">9 300</div><div class="stat-l">человек защищено</div></div>
   </div>
 </div>
+
+<!-- GLOBAL FRAUD STATS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-ey">Глобальная статистика</div>
+    <h2 class="h2">Мошенничество — индустрия<br>с оборотом $16,6 млрд</h2>
+    <p class="sec-sub">По данным FBI IC3 и FTC за 2024 год. Ежегодный рост потерь — в среднем 22%. Большинство жертв не обращаются в полицию.</p>
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-n">$16,6<span>млрд</span></div>
+        <div class="kpi-l">Суммарные потери от мошенничества в 2024</div>
+        <div class="kpi-src">Источник: FBI IC3 Annual Report 2024</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">$6,57<span>млрд</span></div>
+        <div class="kpi-l">Инвестиционное мошенничество — крупнейшая категория</div>
+        <div class="kpi-src">FBI IC3 2024 · Инвест-фрод</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">$5,6<span>млрд</span></div>
+        <div class="kpi-l">Потери через криптовалюту — самый быстрый рост</div>
+        <div class="kpi-src">FBI IC3 2024 · Крипто-мошенничество</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">2,6<span>млн</span></div>
+        <div class="kpi-l">Жалоб на мошенничество подано в FTC за 2024</div>
+        <div class="kpi-src">Источник: FTC Consumer Sentinel 2024</div>
+      </div>
+    </div>
+
+    <div class="fraud-types">
+      <div class="fraud-types-t">Топ видов мошенничества по потерям (2024)</div>
+      <div class="fbar-list">
+        <div class="fbar-row">
+          <div class="fbar-label">Инвестиционное мошенничество</div>
+          <div class="fbar-track"><div class="fbar-fill" style="width:100%;background:var(--danger)"></div></div>
+          <div class="fbar-val">$6,57 млрд</div>
+        </div>
+        <div class="fbar-row">
+          <div class="fbar-label">BEC / Корпоративный фрод</div>
+          <div class="fbar-track"><div class="fbar-fill" style="width:44%;background:var(--warn)"></div></div>
+          <div class="fbar-val">$2,9 млрд</div>
+        </div>
+        <div class="fbar-row">
+          <div class="fbar-label">Техподдержка / Impostors</div>
+          <div class="fbar-track"><div class="fbar-fill" style="width:20%;background:var(--warn)"></div></div>
+          <div class="fbar-val">$1,3 млрд</div>
+        </div>
+        <div class="fbar-row">
+          <div class="fbar-label">Романтические аферы</div>
+          <div class="fbar-track"><div class="fbar-fill" style="width:17%;background:var(--violet)"></div></div>
+          <div class="fbar-val">$1,14 млрд</div>
+        </div>
+        <div class="fbar-row">
+          <div class="fbar-label">Фейковые вакансии (Task Scam)</div>
+          <div class="fbar-track"><div class="fbar-fill" style="width:8%;background:#10B981"></div></div>
+          <div class="fbar-val">$518 млн</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-detail-grid">
+      <div class="stat-detail-card">
+        <div class="sd-t">Рост Task Scam (фейковые вакансии)</div>
+        <div class="task-bars">
+          <div class="task-bar-row">
+            <div class="task-bar-label">2022</div>
+            <div class="task-bar-track"><div class="task-bar-fill" style="width:17%"></div></div>
+            <div class="task-bar-val">$90 млн</div>
+          </div>
+          <div class="task-bar-row">
+            <div class="task-bar-label">2023</div>
+            <div class="task-bar-track"><div class="task-bar-fill" style="width:44%"></div></div>
+            <div class="task-bar-val">$226 млн</div>
+          </div>
+          <div class="task-bar-row">
+            <div class="task-bar-label">2024</div>
+            <div class="task-bar-track"><div class="task-bar-fill" style="width:100%"></div></div>
+            <div class="task-bar-val danger">$518 млн</div>
+          </div>
+        </div>
+        <div class="sd-note">Рост +475% за 2 года · Источник: FTC</div>
+      </div>
+      <div class="stat-detail-card">
+        <div class="sd-t">Платформы мошенников (доля жалоб)</div>
+        <div class="platform-rows">
+          <div class="plat-row">
+            <div class="plat-name">Facebook</div>
+            <div class="plat-track"><div class="plat-fill" style="width:100%"></div></div>
+            <div class="plat-pct">38%</div>
+          </div>
+          <div class="plat-row">
+            <div class="plat-name">Instagram</div>
+            <div class="plat-track"><div class="plat-fill" style="width:63%"></div></div>
+            <div class="plat-pct">24%</div>
+          </div>
+          <div class="plat-row">
+            <div class="plat-name">WhatsApp</div>
+            <div class="plat-track"><div class="plat-fill" style="width:47%"></div></div>
+            <div class="plat-pct">18%</div>
+          </div>
+          <div class="plat-row">
+            <div class="plat-name">Маркетплейсы</div>
+            <div class="plat-track"><div class="plat-fill" style="width:32%"></div></div>
+            <div class="plat-pct">12%</div>
+          </div>
+          <div class="plat-row">
+            <div class="plat-name">Telegram</div>
+            <div class="plat-track"><div class="plat-fill" style="width:21%"></div></div>
+            <div class="plat-pct">8%</div>
+          </div>
+        </div>
+        <div class="sd-note">Источник: FTC Consumer Sentinel 2024</div>
+      </div>
+    </div>
+
+    <div class="stories-row">
+      <div class="story-card">
+        <div class="story-tag">Реальный случай · FBI PSA 2024</div>
+        <div class="story-t">Task Scam через WhatsApp</div>
+        <p class="story-p">Жертва из Техаса получила предложение «ставить лайки» за $200 в день. После нескольких выплат её попросили «пополнить баланс» на $3 000 для «разблокировки» вознаграждения. Итоговые потери — $47 000.</p>
+        <a href="https://www.ic3.gov/Media/Y2024/PSA240628" class="story-link" target="_blank" rel="noopener">ic3.gov · PSA240628 →</a>
+      </div>
+      <div class="story-card">
+        <div class="story-tag">Реальный случай · FTC 2024</div>
+        <div class="story-t">Pig Butchering — «выращивание свиньи»</div>
+        <p class="story-p">Мошенник познакомился с жертвой в Tinder, несколько недель строил доверие. Затем предложил инвестировать в криптовалюту через «проверенную» платформу. Жертва перевела $120 000 за 3 месяца — деньги исчезли.</p>
+        <a href="https://consumer.ftc.gov/articles/what-know-about-romance-scams" class="story-link" target="_blank" rel="noopener">consumer.ftc.gov →</a>
+      </div>
+      <div class="story-card">
+        <div class="story-tag">Реальный случай · AARP 2024</div>
+        <div class="story-t">Фиктивный брокер в Telegram</div>
+        <p class="story-p">Пенсионер перевёл $310 000 «брокеру» из Telegram. Фото брокера оказалось ИИ-сгенерированным, компания не имела лицензии. Деньги выведены через крипто-кошелёк.</p>
+        <a href="https://www.aarp.org/money/scams-fraud/pig-butchering-scam/" class="story-link" target="_blank" rel="noopener">aarp.org →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- AUDIENCE -->
 <section class="sec">
