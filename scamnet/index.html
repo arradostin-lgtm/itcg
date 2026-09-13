@@ -401,6 +401,130 @@ body{font-family:'DM Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;c
 .faq-a{font-size:14px;line-height:1.65;color:var(--text-2);padding-bottom:18px;max-width:64ch;display:none;}
 .faq-item.open .faq-a{display:block;}
 
+/* REPORT SECTION */
+.report-sec{padding-block:68px;border-top:1px solid var(--border);background:var(--bg-2);}
+.report-inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.report-badge{display:inline-flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--danger-bg);color:var(--danger);border:1px solid rgba(204,28,28,.2);padding:4px 12px;border-radius:6px;margin-bottom:18px;}
+.report-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--danger);animation:pulse 1.8s ease-in-out infinite;}
+.report-cards{display:flex;flex-direction:column;gap:12px;}
+.report-why-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px;}
+.report-why-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.report-why-icon.red{background:var(--danger-bg);color:var(--danger);}
+.report-why-icon.amber{background:var(--warn-bg);color:var(--warn);}
+.report-why-icon.green{background:var(--safe-bg);color:var(--safe);}
+.report-why-icon svg{width:18px;height:18px;}
+.report-why-t{font-weight:600;font-size:14px;color:var(--text);margin-bottom:3px;}
+.report-why-p{font-size:13px;color:var(--text-2);line-height:1.5;}
+.btn-report-scammer{display:inline-flex;align-items:center;gap:9px;background:var(--danger);color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:9px;border:none;cursor:pointer;transition:opacity .15s;margin-top:10px;}
+.btn-report-scammer:hover{opacity:.88;}
+
+/* REPORT MODAL */
+.rmodal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:900;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .2s;}
+.rmodal-overlay.open{opacity:1;pointer-events:all;}
+.rmodal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;padding:28px;}
+.rmodal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.rmodal-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:var(--text);}
+.rmodal-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--text-3);display:flex;align-items:center;justify-content:center;}
+.rmodal-close:hover{color:var(--text);}
+.rfield{margin-bottom:16px;}
+.rfield label{display:block;font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px;}
+.rfield input,.rfield textarea,.rfield select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .15s;}
+.rfield input:focus,.rfield textarea:focus,.rfield select:focus{border-color:var(--accent-br);}
+.rfield textarea{resize:vertical;min-height:90px;}
+.rtype-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.rtype-btn{padding:10px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text-2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:center;gap:8px;}
+.rtype-btn:hover{border-color:var(--text-3);color:var(--text);}
+.rtype-btn.sel{border-color:var(--danger);background:var(--danger-bg);color:var(--danger);}
+.rphoto-drop{border:2px dashed var(--border);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative;}
+.rphoto-drop:hover,.rphoto-drop.drag{border-color:var(--accent-br);background:var(--accent-bg);}
+.rphoto-preview{width:80px;height:80px;border-radius:10px;object-fit:cover;margin-inline:auto;display:none;}
+.rphoto-lbl{font-size:14px;font-weight:500;color:var(--text-2);margin-top:8px;}
+.rphoto-sub{font-size:12px;color:var(--text-3);margin-top:4px;}
+.rmodal-step{display:none;}
+.rmodal-step.active{display:block;}
+.rmodal-footer{display:flex;gap:10px;margin-top:20px;}
+.btn-next{flex:1;padding:12px;border-radius:8px;border:none;background:var(--accent-br);color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;transition:opacity .15s;}
+.btn-next:hover{opacity:.88;}
+.btn-prev{padding:12px 18px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text-2);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;}
+.rmodal-progress{display:flex;gap:6px;margin-bottom:22px;}
+.rprog-dot{height:3px;border-radius:2px;background:var(--border);flex:1;transition:background .2s;}
+.rprog-dot.done{background:var(--accent-br);}
+.rsubmit-ok{text-align:center;padding:20px 0;}
+.rsubmit-ok .ok-icon{font-size:48px;margin-bottom:12px;}
+.rsubmit-ok .ok-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:var(--safe);margin-bottom:8px;}
+.rsubmit-ok .ok-sub{font-size:14px;color:var(--text-2);line-height:1.6;}
+
+/* DARK DOSSIER RESULT MODAL */
+.dos-modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.82);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;}
+.dos-modal-overlay.open{display:flex;}
+.dos-card{background:#080D14;border:1px solid #1e2d3d;border-radius:18px;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;color:#e2eaf3;font-family:'DM Sans',sans-serif;position:relative;scrollbar-width:thin;scrollbar-color:#1e2d3d transparent;}
+.dos-card::-webkit-scrollbar{width:4px;}.dos-card::-webkit-scrollbar-thumb{background:#1e2d3d;border-radius:4px;}
+.dos-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px 14px;border-bottom:1px solid #1e2d3d;}
+.dos-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#3d5a75;}
+.dos-verdict-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;font-weight:700;padding:4px 11px;border-radius:5px;text-transform:uppercase;}
+.dos-v-confirmed{background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);}
+.dos-v-high{background:rgba(249,115,22,.15);color:#f97316;border:1px solid rgba(249,115,22,.3);}
+.dos-v-warning{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3);}
+.dos-v-clean{background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3);}
+.dos-close{width:30px;height:30px;border-radius:7px;border:1px solid #1e2d3d;background:none;cursor:pointer;color:#3d5a75;font-size:18px;display:flex;align-items:center;justify-content:center;transition:color .15s,border-color .15s;line-height:1;}
+.dos-close:hover{color:#e2eaf3;border-color:#2d4a6a;}
+.dos-grid{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:18px 22px;}
+.dos-photo-col{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.dos-photo-box{width:120px;height:150px;border-radius:10px;overflow:hidden;border:1px solid #1e2d3d;background:#0a1520;position:relative;flex-shrink:0;}
+.dos-photo-img{width:100%;height:100%;object-fit:cover;display:block;}
+.dos-photo-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#1e3a52;}
+@keyframes doscan{0%{top:-4px}100%{top:calc(100% + 4px)}}
+.dos-scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.7),transparent);top:0;pointer-events:none;animation:doscan 2.2s linear infinite;}
+.dos-photo-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(8,13,20,.75));pointer-events:none;}
+.dos-score-ring{width:70px;height:70px;position:relative;}
+.dos-score-ring svg{width:70px;height:70px;transform:rotate(-90deg);display:block;}
+.dos-score-ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.dos-score-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:700;line-height:1;}
+.dos-score-lbl{font-size:9px;color:#3d5a75;margin-top:1px;}
+.dos-info-col{min-width:0;}
+.dos-name{font-family:'Barlow Condensed',sans-serif;font-size:25px;font-weight:700;color:#e2eaf3;line-height:1.1;margin-bottom:5px;}
+.dos-meta-line{font-size:12px;color:#4a6b8a;line-height:1.7;}
+.dos-kpi-row{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 14px;}
+.dos-kpi{background:#0f1923;border:1px solid #1e2d3d;border-radius:7px;padding:7px 11px;min-width:66px;}
+.dos-kpi-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:#e2eaf3;}
+.dos-kpi-lbl{font-size:10px;color:#3d5a75;margin-top:2px;}
+.dos-section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#3d5a75;margin-bottom:7px;}
+.dos-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.dos-chip{font-size:11px;padding:3px 9px;border-radius:20px;background:#0f1923;border:1px solid #1e2d3d;color:#6a8ba8;}
+.dos-chip.plat{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.22);color:#60a5fa;}
+.dos-divider{height:1px;background:#1e2d3d;margin:0 22px;}
+.dos-social-row{padding:14px 22px;}
+.dos-social-links{display:flex;flex-wrap:wrap;gap:7px;}
+.dos-social-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:5px 11px;border-radius:6px;background:#0f1923;border:1px solid #1e2d3d;color:#6a8ba8;text-decoration:none;transition:border-color .15s,color .15s;}
+.dos-social-link:hover{border-color:#3B82F6;color:#60a5fa;}
+.dos-analysis{padding:14px 22px;}
+.dos-analysis-rows{display:flex;flex-direction:column;gap:7px;}
+.dos-arow{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;background:#0f1923;border:1px solid #1e2d3d;font-size:12px;}
+.dos-arow-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.dos-arow-text{flex:1;color:#6a8ba8;}
+.dos-arow-text b{color:#e2eaf3;}
+.dos-arow-bar{width:56px;height:3px;background:#1e2d3d;border-radius:2px;overflow:hidden;flex-shrink:0;}
+.dos-arow-bar-fill{height:3px;border-radius:2px;transition:width .6s ease;}
+.dos-complaint-bar{padding:12px 22px;background:rgba(239,68,68,.06);border-top:1px solid rgba(239,68,68,.15);border-bottom:1px solid rgba(239,68,68,.15);display:flex;align-items:center;gap:10px;font-size:13px;color:#ef4444;}
+.dos-footer{display:flex;gap:9px;padding:14px 22px;border-top:1px solid #1e2d3d;}
+.dos-btn-report{flex:1;padding:10px;border-radius:8px;border:none;background:#ef4444;color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:opacity .15s;}
+.dos-btn-report:hover{opacity:.85;}
+.dos-btn-close2{padding:10px 18px;border-radius:8px;border:1px solid #1e2d3d;background:none;color:#6a8ba8;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:color .15s,border-color .15s;}
+.dos-btn-close2:hover{color:#e2eaf3;border-color:#2d4a6a;}
+
+/* CHECK HISTORY */
+.history-wrap{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+.history-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
+.history-list{display:flex;flex-direction:column;gap:5px;}
+.history-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;background:var(--bg);border:1px solid var(--border);cursor:pointer;transition:border-color .15s;}
+.history-item:hover{border-color:var(--accent-br);}
+.history-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.hdot-confirmed{background:#ef4444;}.hdot-high{background:#f97316;}.hdot-warning{background:#f59e0b;}.hdot-clean{background:#10b981;}
+.history-meta{flex:1;min-width:0;}
+.history-hname{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.history-hts{font-size:11px;color:var(--text-3);}
+.history-hbadge{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;}
+
 /* CTA / FOOTER */
 .cta-strip{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding-block:60px;}
 .cta-in{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;}
@@ -532,6 +656,10 @@ footer{padding-block:38px;}
           </button>
           <input type="file" id="file-input-photo" accept="image/*" style="display:none">
           <div class="u-note">или перетащи сюда</div>
+        </div>
+        <div id="history-wrap" class="history-wrap" style="display:none">
+          <div class="history-title">История проверок</div>
+          <div id="history-list" class="history-list"></div>
         </div>
         <div class="upload hidden" id="zone-voice">
           <div class="wave-icon">
@@ -1142,6 +1270,150 @@ footer{padding-block:38px;}
   </div>
 </section>
 
+<!-- REPORT SCAMMER SECTION -->
+<section class="report-sec">
+  <div class="wrap report-inner">
+    <div>
+      <div class="report-badge"><span class="report-badge-dot"></span>Краудсорс-база</div>
+      <h2 class="h2" style="margin-bottom:14px;">Встретил мошенника?<br>Защити других</h2>
+      <p class="sec-sub" style="margin-bottom:28px;">Загрузи его фото и расскажи что произошло — мы добавим лицо в базу. Когда кто-то проверит это фото, сразу увидит предупреждение.</p>
+      <button class="btn-report-scammer" onclick="openReportModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Сообщить о мошеннике
+      </button>
+    </div>
+    <div class="report-cards">
+      <div class="report-why-card">
+        <div class="report-why-icon red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div>
+          <div class="report-why-t">Фото в базе навсегда</div>
+          <div class="report-why-p">Загруженное лицо хранится и сравнивается при каждой новой проверке</div>
+        </div>
+      </div>
+      <div class="report-why-card">
+        <div class="report-why-icon amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div>
+          <div class="report-why-t">Другие имена — не помеха</div>
+          <div class="report-why-p">Мошенники меняют имена — мы ищем по лицу, а не по нику</div>
+        </div>
+      </div>
+      <div class="report-why-card">
+        <div class="report-why-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="report-why-t">Загрузка бесплатна</div>
+          <div class="report-why-p">Репорт не тратит проверки из твоего лимита — это вклад в общую защиту</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT MODAL -->
+<div class="rmodal-overlay" id="reportModal">
+  <div class="rmodal">
+    <div class="rmodal-head">
+      <div class="rmodal-title">Сообщить о мошеннике</div>
+      <button class="rmodal-close" onclick="closeReportModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="rmodal-progress">
+      <div class="rprog-dot done" id="rprog1"></div>
+      <div class="rprog-dot" id="rprog2"></div>
+      <div class="rprog-dot" id="rprog3"></div>
+    </div>
+
+    <!-- Step 1: Photo + name -->
+    <div class="rmodal-step active" id="rstep1">
+      <div class="rfield">
+        <label>Фото мошенника *</label>
+        <div class="rphoto-drop" id="rPhotoDrop" onclick="document.getElementById('rPhotoInput').click()">
+          <img id="rPhotoPreview" class="rphoto-preview" alt="">
+          <div id="rPhotoPlaceholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--text-3);margin-inline:auto;display:block;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="rphoto-lbl">Загрузить фото лица</div>
+            <div class="rphoto-sub">JPG, PNG до 10 МБ</div>
+          </div>
+          <input type="file" id="rPhotoInput" accept="image/*" style="display:none" onchange="onRPhotoSelect(this)">
+        </div>
+      </div>
+      <div class="rfield">
+        <label>Имя, которым он представлялся</label>
+        <input type="text" id="rKnownName" placeholder="Имя или никнейм">
+      </div>
+      <div class="rmodal-footer">
+        <button class="btn-next" onclick="rNextStep(2)">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Scam type + platform -->
+    <div class="rmodal-step" id="rstep2">
+      <div class="rfield">
+        <label>Тип мошенничества *</label>
+        <div class="rtype-grid">
+          <button class="rtype-btn" data-type="romance" onclick="selectRType(this)">💔 Брачный аферист</button>
+          <button class="rtype-btn" data-type="investment" onclick="selectRType(this)">📈 Инвестиции / крипто</button>
+          <button class="rtype-btn" data-type="extortion" onclick="selectRType(this)">⚠️ Вымогательство</button>
+          <button class="rtype-btn" data-type="fake_job" onclick="selectRType(this)">💼 Поддельная вакансия</button>
+          <button class="rtype-btn" data-type="other" onclick="selectRType(this)" style="grid-column:span 2">Другое</button>
+        </div>
+      </div>
+      <div class="rfield">
+        <label>Где вы познакомились?</label>
+        <select id="rPlatform">
+          <option value="">— Выбрать —</option>
+          <option>Tinder</option>
+          <option>Instagram</option>
+          <option>Telegram</option>
+          <option>ВКонтакте</option>
+          <option>Facebook</option>
+          <option>WhatsApp</option>
+          <option>Bumble</option>
+          <option>LinkedIn</option>
+          <option>Офлайн</option>
+          <option>Другое</option>
+        </select>
+      </div>
+      <div class="rmodal-footer">
+        <button class="btn-prev" onclick="rNextStep(1)">← Назад</button>
+        <button class="btn-next" onclick="rNextStep(3)">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Description + submit -->
+    <div class="rmodal-step" id="rstep3">
+      <div class="rfield">
+        <label>Что произошло? (кратко)</label>
+        <textarea id="rDescription" placeholder="Что требовал, как вёл себя, сколько потерял..."></textarea>
+      </div>
+      <div class="rfield">
+        <label>Сумма потерь (если была), USD</label>
+        <input type="number" id="rAmount" placeholder="0" min="0">
+      </div>
+      <div class="rmodal-footer">
+        <button class="btn-prev" onclick="rNextStep(2)">← Назад</button>
+        <button class="btn-next" id="rSubmitBtn" onclick="submitReport()">Отправить в базу</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Success -->
+    <div class="rmodal-step" id="rstep4">
+      <div class="rsubmit-ok">
+        <div class="ok-icon">✅</div>
+        <div class="ok-title">Данные переданы</div>
+        <div class="ok-sub">Лицо добавлено в базу. Теперь если кто-то проверит это фото — увидит предупреждение.<br><br>Спасибо, что помогаешь защищать других.</div>
+        <button class="btn" style="margin-top:20px;margin-inline:auto;" onclick="closeReportModal()">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- CTA -->
 <div class="cta-strip">
   <div class="wrap cta-in">
@@ -1168,15 +1440,69 @@ footer{padding-block:38px;}
 </footer>
 
 <!-- Result modal -->
-<div id="result-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 32px;max-width:460px;width:100%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.18);">
-    <button onclick="document.getElementById('result-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:var(--text-3);font-size:20px;line-height:1;">×</button>
-    <div id="result-level-badge" style="display:inline-block;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:16px;"></div>
-    <div id="result-score-line" style="font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;color:var(--text);line-height:1;margin-bottom:4px;"></div>
-    <div style="font-size:13px;color:var(--text-3);margin-bottom:24px;">Индекс риска / 100</div>
-    <div id="result-details" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;"></div>
-    <div id="result-profile" style="display:none;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;"></div>
-    <div id="result-breakdown" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;"></div>
+<div id="result-modal" class="dos-modal-overlay" onclick="if(event.target===this)closeDossier()">
+  <div class="dos-card">
+    <div class="dos-header">
+      <div class="dos-eyebrow">SCAMNET · АНАЛИЗ</div>
+      <div id="dos-verdict" class="dos-verdict-badge dos-v-clean">ЧИСТО</div>
+      <button class="dos-close" onclick="closeDossier()">×</button>
+    </div>
+
+    <div class="dos-grid">
+      <div class="dos-photo-col">
+        <div class="dos-photo-box">
+          <img id="dos-photo-img" src="" alt="" class="dos-photo-img" style="display:none">
+          <div id="dos-photo-ph" class="dos-photo-ph">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div class="dos-scan-line"></div>
+          <div class="dos-photo-overlay"></div>
+        </div>
+        <div class="dos-score-ring">
+          <svg viewBox="0 0 70 70">
+            <circle cx="35" cy="35" r="29" fill="none" stroke="#1e2d3d" stroke-width="5"/>
+            <circle id="dos-ring-arc" cx="35" cy="35" r="29" fill="none" stroke="#10b981" stroke-width="5" stroke-dasharray="0 182" stroke-linecap="round"/>
+          </svg>
+          <div class="dos-score-ring-inner">
+            <span id="dos-score-val" class="dos-score-val">0</span>
+            <span class="dos-score-lbl">/ 100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dos-info-col">
+        <div id="dos-name" class="dos-name">Анализируется…</div>
+        <div id="dos-meta" class="dos-meta-line"></div>
+        <div id="dos-kpi-row" class="dos-kpi-row"></div>
+        <div id="dos-aliases-wrap" style="display:none">
+          <div class="dos-section-label">ПСЕВДОНИМЫ</div>
+          <div id="dos-aliases" class="dos-chips"></div>
+        </div>
+        <div id="dos-platforms-wrap" style="display:none">
+          <div class="dos-section-label">ПЛАТФОРМЫ</div>
+          <div id="dos-platforms" class="dos-chips"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dos-divider"></div>
+
+    <div id="dos-social-wrap" style="display:none" class="dos-social-row">
+      <div class="dos-section-label">ПРОФИЛИ В СОЦ. СЕТЯХ</div>
+      <div id="dos-social-links" class="dos-social-links"></div>
+    </div>
+
+    <div class="dos-analysis">
+      <div class="dos-section-label">РЕЗУЛЬТАТЫ АНАЛИЗА</div>
+      <div id="dos-analysis-rows" class="dos-analysis-rows"></div>
+    </div>
+
+    <div id="dos-complaint-bar" class="dos-complaint-bar" style="display:none"></div>
+
+    <div class="dos-footer">
+      <button class="dos-btn-report" onclick="closeDossier();openReportModal()">Сообщить о мошеннике</button>
+      <button class="dos-btn-close2" onclick="closeDossier()">Закрыть</button>
+    </div>
   </div>
 </div>
 
@@ -1324,6 +1650,7 @@ async function checkPhoto(file) {
     }, 600);
     return;
   }
+  const photoUrl = URL.createObjectURL(file);
   const overlay = document.getElementById('checking-overlay');
   overlay.style.display = 'flex';
   try {
@@ -1337,7 +1664,7 @@ async function checkPhoto(file) {
       return;
     }
     const data = await r.json();
-    showResult(data);
+    showResult(data, photoUrl);
   } catch(e) {
     alert('Не удалось подключиться к серверу. Попробуйте позже.');
   } finally {
@@ -1345,64 +1672,340 @@ async function checkPhoto(file) {
   }
 }
 
-function showResult(data) {
-  const LEVELS = {
-    clean:     { label: 'Чисто',      bg: '#e6f7f0', color: '#0a7a5a' },
-    warning:   { label: 'Осторожно',  bg: '#fff7e0', color: '#b86a00' },
-    high:      { label: 'Высокий риск', bg: '#fff0e0', color: '#c05000' },
-    confirmed: { label: 'Мошенник',   bg: '#fdeaea', color: '#cc1c1c' },
-  };
-  const lv = LEVELS[data.risk_level] || LEVELS.warning;
+// ── Dossier result modal ──────────────────────────────────────────────────────
 
-  const badge = document.getElementById('result-level-badge');
-  badge.textContent = lv.label;
-  badge.style.background = lv.bg;
-  badge.style.color = lv.color;
+const VERDICT = {
+  clean:     { label: 'ЧИСТО',        cls: 'dos-v-clean',     color: '#10b981', ringColor: '#10b981' },
+  warning:   { label: 'ОСТОРОЖНО',    cls: 'dos-v-warning',   color: '#f59e0b', ringColor: '#f59e0b' },
+  high:      { label: 'ВЫСОКИЙ РИСК', cls: 'dos-v-high',      color: '#f97316', ringColor: '#f97316' },
+  confirmed: { label: 'МОШЕННИК',     cls: 'dos-v-confirmed', color: '#ef4444', ringColor: '#ef4444' },
+};
 
-  document.getElementById('result-score-line').textContent = Math.round(data.risk_score);
-  document.getElementById('result-score-line').style.color = lv.color;
+let _lastResult = null;
 
-  const details = document.getElementById('result-details');
-  details.innerHTML = [
-    data.is_ai_generated ? row('⚠️', `ИИ-изображение обнаружено (уверенность ${Math.round((data.ai_confidence||0)*100)}%)`, '#fdeaea', '#cc1c1c') : row('✓', 'Фото выглядит настоящим', '#e6f7f0', '#0a7a5a'),
-    data.match_found ? row('⚠️', `Найден в базе мошенников (совпадение ${Math.round((data.match_confidence||0)*100)}%)`, '#fdeaea', '#cc1c1c') : row('✓', 'В базе мошенников не найден', '#e6f7f0', '#0a7a5a'),
-    data.crowdsource.unique_sessions > 1 ? row('ℹ️', `Фото проверяли ${data.crowdsource.unique_sessions} раз(а) независимо`, '#fff7e0', '#b86a00') : '',
-  ].join('');
+function showResult(data, photoUrl) {
+  _lastResult = data;
+  const lv = VERDICT[data.risk_level] || VERDICT.warning;
+  const p = data.profile || {};
+  const bd = data.score_breakdown || {};
 
-  const profile = document.getElementById('result-profile');
-  if (data.profile) {
-    profile.style.display = 'block';
-    profile.innerHTML = `
-      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;">Досье</div>
-      <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:2px;">${data.profile.known_as || data.profile.real_name || 'Неизвестно'}</div>
-      ${data.profile.real_name && data.profile.known_as ? `<div style="font-size:13px;color:var(--text-3);">${data.profile.real_name}</div>` : ''}
-      ${data.profile.charges ? `<div style="font-size:12px;color:#cc1c1c;margin-top:8px;">Обвинения: ${data.profile.charges}</div>` : ''}
-      ${data.profile.sentence ? `<div style="font-size:12px;color:var(--text-2);">Приговор: ${data.profile.sentence}</div>` : ''}`;
+  // Verdict badge
+  const verdict = document.getElementById('dos-verdict');
+  verdict.textContent = lv.label;
+  verdict.className = 'dos-verdict-badge ' + lv.cls;
+
+  // Photo
+  const img = document.getElementById('dos-photo-img');
+  const ph = document.getElementById('dos-photo-ph');
+  if (photoUrl) {
+    img.src = photoUrl; img.style.display = 'block'; ph.style.display = 'none';
   } else {
-    profile.style.display = 'none';
+    img.style.display = 'none'; ph.style.display = 'flex';
   }
 
-  const bd = data.score_breakdown;
-  document.getElementById('result-breakdown').innerHTML = `
-    <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;">Детали подсчёта</div>
-    ${brow('База данных', bd.db_match, 60)}
-    ${brow('Краудсорсинг', bd.crowdsource, 25)}
-    ${brow('Жалобы', bd.reports, 20)}
-    ${brow('ИИ-детектор', bd.ai_flag, 20)}`;
+  // Score ring animation
+  const score = Math.round(data.risk_score || 0);
+  document.getElementById('dos-score-val').textContent = score;
+  document.getElementById('dos-score-val').style.color = lv.color;
+  const arc = document.getElementById('dos-ring-arc');
+  const circ = 2 * Math.PI * 29; // r=29
+  const filled = (score / 100) * circ;
+  arc.setAttribute('stroke', lv.ringColor);
+  arc.setAttribute('stroke-dasharray', filled + ' ' + (circ - filled));
 
-  document.getElementById('result-modal').style.display = 'flex';
+  // Name & meta
+  let displayName = 'Неизвестно';
+  if (data.match_source === 'profile') {
+    displayName = p.known_as || p.real_name || 'Неизвестно';
+  } else if (data.match_source === 'reported') {
+    displayName = p.known_name || 'Неизвестно';
+  }
+  document.getElementById('dos-name').textContent = displayName;
+
+  const metaParts = [];
+  if (p.nationality) metaParts.push(p.nationality);
+  if (p.current_status) metaParts.push(_statusLabel(p.current_status));
+  if (p.dob) metaParts.push('д.р. ' + p.dob);
+  if (data.match_source === 'reported' && p.platform) metaParts.push('платформа: ' + p.platform);
+  document.getElementById('dos-meta').textContent = metaParts.join(' · ');
+
+  // KPI tiles
+  const kpiRow = document.getElementById('dos-kpi-row');
+  const kpis = [];
+  if (p.victim_count) kpis.push({ val: p.victim_count + '+', lbl: 'жертв' });
+  if (p.total_damage_usd) kpis.push({ val: '$' + _fmt(p.total_damage_usd), lbl: 'ущерб' });
+  if (p.report_count) kpis.push({ val: p.report_count, lbl: 'жалоб' });
+  if (data.crowdsource && data.crowdsource.unique_sessions > 0) kpis.push({ val: data.crowdsource.unique_sessions, lbl: 'проверок' });
+  kpiRow.innerHTML = kpis.map(k => `<div class="dos-kpi"><div class="dos-kpi-val">${k.val}</div><div class="dos-kpi-lbl">${k.lbl}</div></div>`).join('');
+
+  // Aliases
+  let aliases = [];
+  try { aliases = JSON.parse(p.known_aliases || '[]'); } catch(e) {}
+  if (p.known_as && !aliases.includes(p.known_as)) aliases.unshift(p.known_as);
+  const awrap = document.getElementById('dos-aliases-wrap');
+  if (aliases.length) {
+    awrap.style.display = 'block';
+    document.getElementById('dos-aliases').innerHTML = aliases.map(a => `<span class="dos-chip">${a}</span>`).join('');
+  } else { awrap.style.display = 'none'; }
+
+  // Platforms
+  let platforms = [];
+  try { platforms = JSON.parse(p.platforms || '[]'); } catch(e) {}
+  if (data.match_source === 'reported' && p.platform && !platforms.length) platforms = [p.platform];
+  const pwrap = document.getElementById('dos-platforms-wrap');
+  if (platforms.length) {
+    pwrap.style.display = 'block';
+    document.getElementById('dos-platforms').innerHTML = platforms.map(pl => `<span class="dos-chip plat">${pl}</span>`).join('');
+  } else { pwrap.style.display = 'none'; }
+
+  // Social links
+  let social = {};
+  try { social = JSON.parse(p.social_links || '{}'); } catch(e) {}
+  const swrap = document.getElementById('dos-social-wrap');
+  const slinks = Object.entries(social).filter(([,v]) => v);
+  if (slinks.length) {
+    swrap.style.display = 'block';
+    document.getElementById('dos-social-links').innerHTML = slinks.map(([name, url]) =>
+      `<a href="${url}" target="_blank" rel="noopener" class="dos-social-link">${_platformIcon(name)} ${name}</a>`
+    ).join('');
+  } else { swrap.style.display = 'none'; }
+
+  // Analysis rows
+  const rows = [];
+  rows.push(_arow(
+    data.is_ai_generated ? '🤖' : '✓',
+    data.is_ai_generated ? `<b>ИИ-сгенерированное фото</b> — уверенность ${Math.round((data.ai_confidence||0)*100)}%` : '<b>Фото настоящее</b> — признаков генерации не найдено',
+    data.is_ai_generated ? '#ef4444' : '#10b981',
+    bd.ai_flag || 0, 20
+  ));
+  rows.push(_arow(
+    data.match_found ? '⚠' : '✓',
+    data.match_found
+      ? `<b>Найден в базе мошенников</b> — совпадение ${Math.round((data.match_confidence||0)*100)}%` + (data.match_source === 'reported' ? ' (жалоба жертвы)' : ' (верифицировано)')
+      : '<b>В базе не найден</b> — в базе мошенников отсутствует',
+    data.match_found ? lv.color : '#10b981',
+    bd.db_match || 0, 60
+  ));
+  if ((data.crowdsource?.unique_sessions || 0) > 1) {
+    rows.push(_arow('ℹ', `<b>Краудсорсинг:</b> это фото проверяли ${data.crowdsource.unique_sessions} раз независимо`, '#f59e0b', bd.crowdsource || 0, 25));
+  }
+  if (bd.reports > 0) {
+    rows.push(_arow('⚑', `<b>Жалобы:</b> поступали обращения по данному лицу`, '#f97316', bd.reports || 0, 20));
+  }
+  document.getElementById('dos-analysis-rows').innerHTML = rows.join('');
+
+  // Complaint bar
+  const cbar = document.getElementById('dos-complaint-bar');
+  const totalComplaints = (p.report_count || 0) + (data.crowdsource?.unique_sessions || 0);
+  if (data.match_found && totalComplaints > 0) {
+    cbar.style.display = 'flex';
+    cbar.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    По данному лицу зафиксировано <strong style="margin-inline:4px">${totalComplaints}</strong> жалоб(ы) и обращений`;
+  } else {
+    cbar.style.display = 'none';
+  }
+
+  // Charges info (for verified profiles)
+  if (data.match_source === 'profile' && (p.charges || p.sentence)) {
+    const cbar2 = document.getElementById('dos-complaint-bar');
+    if (cbar2.style.display === 'none') {
+      cbar2.style.display = 'flex';
+      cbar2.innerHTML = '';
+    } else {
+      cbar2.innerHTML += '<br>';
+    }
+    cbar2.style.color = '#f97316';
+    cbar2.style.borderTopColor = 'rgba(249,115,22,.15)';
+    cbar2.style.background = 'rgba(249,115,22,.06)';
+    if (p.charges) cbar2.innerHTML += `Обвинения: <strong style="margin-left:4px">${p.charges}</strong>`;
+    if (p.sentence) cbar2.innerHTML += `${p.charges ? ' · ' : ''}Приговор: <strong style="margin-left:4px">${p.sentence}</strong>`;
+  }
+
+  // Open modal
+  document.getElementById('result-modal').classList.add('open');
+
+  // Save to history
+  _saveHistory({
+    ts: new Date().toISOString(),
+    risk_level: data.risk_level,
+    risk_score: score,
+    display_name: displayName,
+    match_found: data.match_found,
+    is_ai: data.is_ai_generated,
+    data: data,
+  });
+  renderHistory();
 }
 
-function row(icon, text, bg, color) {
-  return `<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;background:${bg};font-size:13px;color:${color};">${icon} ${text}</div>`;
+function closeDossier() {
+  document.getElementById('result-modal').classList.remove('open');
 }
-function brow(label, val, max) {
-  const pct = Math.round((val / max) * 100);
-  return `<div style="margin-bottom:10px;">
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);margin-bottom:4px;"><span>${label}</span><span>${val} / ${max}</span></div>
-    <div style="height:4px;background:var(--border);border-radius:2px;"><div style="height:4px;background:var(--accent-br);border-radius:2px;width:${pct}%;"></div></div>
+
+function _arow(icon, html, color, val, max) {
+  const pct = Math.min(100, Math.round((val / max) * 100));
+  return `<div class="dos-arow">
+    <div class="dos-arow-icon" style="background:${color}22;color:${color}">${icon}</div>
+    <div class="dos-arow-text">${html}</div>
+    <div class="dos-arow-bar"><div class="dos-arow-bar-fill" style="width:${pct}%;background:${color}"></div></div>
   </div>`;
 }
+
+function _fmt(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(0) + 'K';
+  return n.toString();
+}
+
+function _statusLabel(s) {
+  return { at_large:'в розыске', convicted:'осуждён', released:'освобождён', under_investigation:'под следствием' }[s] || s;
+}
+
+function _platformIcon(name) {
+  const icons = { linkedin:'in', instagram:'ig', facebook:'fb', vk:'vk', telegram:'tg', twitter:'tw', x:'x' };
+  return `<span style="font-family:'DM Mono',monospace;font-size:9px;opacity:.7">${icons[name.toLowerCase()]||'→'}</span>`;
+}
+
+// ── Check history (localStorage) ─────────────────────────────────────────────
+
+function _saveHistory(entry) {
+  try {
+    let hist = JSON.parse(localStorage.getItem('sn_history') || '[]');
+    hist.unshift(entry);
+    if (hist.length > 10) hist = hist.slice(0, 10);
+    localStorage.setItem('sn_history', JSON.stringify(hist));
+  } catch(e) {}
+}
+
+function renderHistory() {
+  try {
+    const hist = JSON.parse(localStorage.getItem('sn_history') || '[]');
+    if (!hist.length) return;
+    const wrap = document.getElementById('history-wrap');
+    const list = document.getElementById('history-list');
+    wrap.style.display = 'block';
+    const VERDLABEL = { clean:'Чисто', warning:'Осторожно', high:'Высокий риск', confirmed:'Мошенник' };
+    const VERDCOL = { clean:'#10b981', warning:'#f59e0b', high:'#f97316', confirmed:'#ef4444' };
+    list.innerHTML = hist.map((h, i) => {
+      const d = new Date(h.ts);
+      const ts = d.toLocaleDateString('ru',{day:'2-digit',month:'short'}) + ' ' + d.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'});
+      const col = VERDCOL[h.risk_level] || '#6a8ba8';
+      const lbl = VERDLABEL[h.risk_level] || h.risk_level;
+      return `<div class="history-item" onclick="reopenHistory(${i})">
+        <div class="history-dot" style="background:${col}"></div>
+        <div class="history-meta">
+          <div class="history-hname">${h.display_name || 'Неизвестно'}</div>
+          <div class="history-hts">${ts}</div>
+        </div>
+        <div class="history-hbadge" style="background:${col}22;color:${col};border:1px solid ${col}44">${lbl}</div>
+      </div>`;
+    }).join('');
+  } catch(e) {}
+}
+
+function reopenHistory(idx) {
+  try {
+    const hist = JSON.parse(localStorage.getItem('sn_history') || '[]');
+    if (hist[idx]) showResult(hist[idx].data);
+  } catch(e) {}
+}
+
+// ── Report modal JS ───────────────────────────────────────────────────────────
+
+let _rPhotoFile = null;
+let _rScamType = null;
+
+function openReportModal() {
+  if (!getToken()) {
+    document.getElementById('reg').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  _rPhotoFile = null; _rScamType = null;
+  document.querySelectorAll('.rtype-btn').forEach(b => b.classList.remove('sel'));
+  document.getElementById('rKnownName').value = '';
+  document.getElementById('rDescription').value = '';
+  document.getElementById('rAmount').value = '';
+  document.getElementById('rPlatform').value = '';
+  const preview = document.getElementById('rPhotoPreview');
+  preview.style.display = 'none'; preview.src = '';
+  document.getElementById('rPhotoPlaceholder').style.display = 'block';
+  _rGoto(1);
+  document.getElementById('reportModal').classList.add('open');
+}
+
+function closeReportModal() {
+  document.getElementById('reportModal').classList.remove('open');
+}
+
+function rNextStep(n) {
+  if (n === 2 && !_rPhotoFile) {
+    alert('Пожалуйста, загрузите фото мошенника');
+    return;
+  }
+  if (n === 3 && !_rScamType) {
+    alert('Выберите тип мошенничества');
+    return;
+  }
+  _rGoto(n);
+}
+
+function _rGoto(n) {
+  document.querySelectorAll('.rmodal-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('rstep' + n).classList.add('active');
+  const dots = document.querySelectorAll('.rprog-dot');
+  dots.forEach((d, i) => d.classList.toggle('done', i < n));
+}
+
+function selectRType(btn) {
+  document.querySelectorAll('.rtype-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  _rScamType = btn.dataset.type;
+}
+
+function onRPhotoSelect(input) {
+  const file = input.files[0];
+  if (!file) return;
+  _rPhotoFile = file;
+  const preview = document.getElementById('rPhotoPreview');
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = 'block';
+  document.getElementById('rPhotoPlaceholder').style.display = 'none';
+}
+
+async function submitReport() {
+  if (!_rPhotoFile) { alert('Нужно фото'); return; }
+  if (!_rScamType) { alert('Выберите тип мошенничества'); return; }
+  const btn = document.getElementById('rSubmitBtn');
+  btn.textContent = 'Отправляем…';
+  btn.disabled = true;
+  try {
+    const form = new FormData();
+    form.append('file', _rPhotoFile);
+    form.append('scam_type', _rScamType);
+    const name = document.getElementById('rKnownName').value.trim();
+    const desc = document.getElementById('rDescription').value.trim();
+    const amount = document.getElementById('rAmount').value;
+    const platform = document.getElementById('rPlatform').value;
+    if (name) form.append('known_name', name);
+    if (desc) form.append('description', desc);
+    if (amount) form.append('amount_lost_usd', amount);
+    if (platform) form.append('platform', platform);
+    const r = await fetch(API + '/report/face', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + getToken() },
+      body: form,
+    });
+    if (!r.ok) { const e = await r.json().catch(()=>({})); throw new Error(e.detail || 'Ошибка'); }
+    _rGoto(4);
+  } catch(e) {
+    alert('Ошибка: ' + e.message);
+  } finally {
+    btn.textContent = 'Отправить в базу';
+    btn.disabled = false;
+  }
+}
+
+// Init history on load
+renderHistory();
 
 function switchMainTab(btn, tabId) {
   document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
