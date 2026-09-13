@@ -1316,13 +1316,20 @@ document.getElementById('zone-photo').addEventListener('drop', function(ev) {
 });
 
 async function checkPhoto(file) {
+  if (!getToken()) {
+    document.getElementById('reg').scrollIntoView({behavior: 'smooth'});
+    setTimeout(() => {
+      const card = document.querySelector('.reg-form-card');
+      if (card) { card.style.outline = '2px solid var(--accent-br)'; setTimeout(() => card.style.outline = '', 2000); }
+    }, 600);
+    return;
+  }
   const overlay = document.getElementById('checking-overlay');
   overlay.style.display = 'flex';
   try {
     const form = new FormData();
     form.append('file', file);
-    const headers = {};
-    if (getToken()) headers['Authorization'] = 'Bearer ' + getToken();
+    const headers = {'Authorization': 'Bearer ' + getToken()};
     const r = await fetch(API + '/check/face', { method: 'POST', headers, body: form });
     if (!r.ok) {
       const err = await r.json().catch(() => ({}));
