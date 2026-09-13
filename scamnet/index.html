@@ -481,10 +481,11 @@ footer{padding-block:38px;}
           <div class="u-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="9" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke-linejoin="round"/></svg></div>
           <div class="u-label">Загрузи фото собеседника</div>
           <div class="u-sub">JPG, PNG, WEBP — до 10 МБ</div>
-          <button class="btn" type="button">
+          <button class="btn" type="button" id="btn-pick-photo">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             Выбрать фото
           </button>
+          <input type="file" id="file-input-photo" accept="image/*" style="display:none">
           <div class="u-note">или перетащи сюда</div>
         </div>
         <div class="upload hidden" id="zone-voice">
@@ -982,7 +983,7 @@ footer{padding-block:38px;}
       <div class="reg-form-card">
         <div class="reg-form-h">Создать аккаунт</div>
         <div class="reg-form-s">Присоединяйся к 9 300 защищённым пользователям</div>
-        <button class="btn-google" type="button">
+        <button class="btn-google" type="button" id="btn-google-login">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.013 17.64 11.706 17.64 9.2z" fill="#4285F4"/>
             <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
@@ -1121,7 +1122,202 @@ footer{padding-block:38px;}
   </div>
 </footer>
 
+<!-- Result modal -->
+<div id="result-modal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 32px;max-width:460px;width:100%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.18);">
+    <button onclick="document.getElementById('result-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:var(--text-3);font-size:20px;line-height:1;">×</button>
+    <div id="result-level-badge" style="display:inline-block;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:6px;margin-bottom:16px;"></div>
+    <div id="result-score-line" style="font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;color:var(--text);line-height:1;margin-bottom:4px;"></div>
+    <div style="font-size:13px;color:var(--text-3);margin-bottom:24px;">Индекс риска / 100</div>
+    <div id="result-details" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;"></div>
+    <div id="result-profile" style="display:none;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;"></div>
+    <div id="result-breakdown" style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;"></div>
+  </div>
+</div>
+
+<!-- Checking overlay -->
+<div id="checking-overlay" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="text-align:center;color:#fff;">
+    <div style="width:48px;height:48px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;"></div>
+    <div style="font-size:16px;font-weight:500;">Проверяем...</div>
+  </div>
+</div>
+
 <script>
+const API = 'https://scamnet-api-production.up.railway.app';
+
+// ── Token management ──────────────────────────────────────────────────────────
+function getToken() { try { return localStorage.getItem('sn_token'); } catch(e) { return null; } }
+function setToken(t) { try { localStorage.setItem('sn_token', t); } catch(e) {} }
+function clearToken() { try { localStorage.removeItem('sn_token'); } catch(e) {} }
+
+// ── Parse token from URL hash after Google redirect ───────────────────────────
+(function() {
+  const hash = window.location.hash;
+  if (hash.startsWith('#token=')) {
+    const token = hash.slice(7);
+    setToken(token);
+    history.replaceState(null, '', window.location.pathname);
+    loadUser(token);
+  } else if (getToken()) {
+    loadUser(getToken());
+  }
+})();
+
+async function loadUser(token) {
+  try {
+    const r = await fetch(API + '/auth/me', { headers: { 'Authorization': 'Bearer ' + token } });
+    if (!r.ok) { clearToken(); return; }
+    const user = await r.json();
+    showLoggedIn(user);
+  } catch(e) {}
+}
+
+function showLoggedIn(user) {
+  // Update Google button → show user name
+  const btn = document.getElementById('btn-google-login');
+  if (btn) {
+    btn.innerHTML = (user.avatar_url
+      ? `<img src="${user.avatar_url}" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" referrerpolicy="no-referrer">`
+      : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`
+    ) + ` ${user.name || user.email} <span style="font-size:11px;color:var(--text-3);margin-left:4px;">(${user.checks_used}/${user.checks_limit})</span>`;
+    btn.onclick = null;
+  }
+  // Update form card
+  const card = document.querySelector('.reg-form-card');
+  if (card) {
+    card.innerHTML = `
+      <div style="text-align:center;padding:20px 0;">
+        ${user.avatar_url ? `<img src="${user.avatar_url}" style="width:64px;height:64px;border-radius:50%;margin-bottom:12px;" referrerpolicy="no-referrer">` : ''}
+        <div style="font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px;">${user.name || 'Пользователь'}</div>
+        <div style="font-size:13px;color:var(--text-3);margin-bottom:20px;">${user.email}</div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:var(--text-2);">Проверок в этом месяце</span>
+          <span style="font-family:'DM Mono',monospace;font-weight:600;color:var(--text);">${user.checks_used} / ${user.checks_limit}</span>
+        </div>
+        <button onclick="clearToken();location.reload();" style="font-size:13px;color:var(--text-3);background:none;border:none;cursor:pointer;text-decoration:underline;">Выйти</button>
+      </div>`;
+  }
+}
+
+// ── Google login ──────────────────────────────────────────────────────────────
+document.getElementById('btn-google-login').addEventListener('click', function() {
+  if (getToken()) return;
+  window.location.href = API + '/auth/google';
+});
+
+// ── Load live stats ───────────────────────────────────────────────────────────
+(async function() {
+  try {
+    const r = await fetch(API + '/stats/global');
+    if (!r.ok) return;
+    const s = await r.json();
+    const nodes = document.querySelectorAll('.stat-n');
+    const labels = document.querySelectorAll('.stat-l');
+    if (nodes[0]) nodes[0].textContent = s.total_checks.toLocaleString('ru');
+    if (nodes[1]) nodes[1].textContent = s.total_profiles.toLocaleString('ru');
+    if (nodes[2]) nodes[2].textContent = s.total_users.toLocaleString('ru');
+  } catch(e) {}
+})();
+
+// ── Photo upload & check ──────────────────────────────────────────────────────
+document.getElementById('btn-pick-photo').addEventListener('click', () => {
+  document.getElementById('file-input-photo').click();
+});
+
+document.getElementById('file-input-photo').addEventListener('change', function() {
+  if (this.files && this.files[0]) checkPhoto(this.files[0]);
+});
+
+document.getElementById('zone-photo').addEventListener('drop', function(ev) {
+  ev.preventDefault();
+  this.classList.remove('drag-over');
+  const file = ev.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) checkPhoto(file);
+});
+
+async function checkPhoto(file) {
+  const overlay = document.getElementById('checking-overlay');
+  overlay.style.display = 'flex';
+  try {
+    const form = new FormData();
+    form.append('file', file);
+    const headers = {};
+    if (getToken()) headers['Authorization'] = 'Bearer ' + getToken();
+    const r = await fetch(API + '/check/face', { method: 'POST', headers, body: form });
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      alert(err.detail || 'Ошибка при проверке. Попробуйте ещё раз.');
+      return;
+    }
+    const data = await r.json();
+    showResult(data);
+  } catch(e) {
+    alert('Не удалось подключиться к серверу. Попробуйте позже.');
+  } finally {
+    overlay.style.display = 'none';
+  }
+}
+
+function showResult(data) {
+  const LEVELS = {
+    clean:     { label: 'Чисто',      bg: '#e6f7f0', color: '#0a7a5a' },
+    warning:   { label: 'Осторожно',  bg: '#fff7e0', color: '#b86a00' },
+    high:      { label: 'Высокий риск', bg: '#fff0e0', color: '#c05000' },
+    confirmed: { label: 'Мошенник',   bg: '#fdeaea', color: '#cc1c1c' },
+  };
+  const lv = LEVELS[data.risk_level] || LEVELS.warning;
+
+  const badge = document.getElementById('result-level-badge');
+  badge.textContent = lv.label;
+  badge.style.background = lv.bg;
+  badge.style.color = lv.color;
+
+  document.getElementById('result-score-line').textContent = Math.round(data.risk_score);
+  document.getElementById('result-score-line').style.color = lv.color;
+
+  const details = document.getElementById('result-details');
+  details.innerHTML = [
+    data.is_ai_generated ? row('⚠️', `ИИ-изображение обнаружено (уверенность ${Math.round((data.ai_confidence||0)*100)}%)`, '#fdeaea', '#cc1c1c') : row('✓', 'Фото выглядит настоящим', '#e6f7f0', '#0a7a5a'),
+    data.match_found ? row('⚠️', `Найден в базе мошенников (совпадение ${Math.round((data.match_confidence||0)*100)}%)`, '#fdeaea', '#cc1c1c') : row('✓', 'В базе мошенников не найден', '#e6f7f0', '#0a7a5a'),
+    data.crowdsource.unique_sessions > 1 ? row('ℹ️', `Фото проверяли ${data.crowdsource.unique_sessions} раз(а) независимо`, '#fff7e0', '#b86a00') : '',
+  ].join('');
+
+  const profile = document.getElementById('result-profile');
+  if (data.profile) {
+    profile.style.display = 'block';
+    profile.innerHTML = `
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;">Досье</div>
+      <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:2px;">${data.profile.known_as || data.profile.real_name || 'Неизвестно'}</div>
+      ${data.profile.real_name && data.profile.known_as ? `<div style="font-size:13px;color:var(--text-3);">${data.profile.real_name}</div>` : ''}
+      ${data.profile.charges ? `<div style="font-size:12px;color:#cc1c1c;margin-top:8px;">Обвинения: ${data.profile.charges}</div>` : ''}
+      ${data.profile.sentence ? `<div style="font-size:12px;color:var(--text-2);">Приговор: ${data.profile.sentence}</div>` : ''}`;
+  } else {
+    profile.style.display = 'none';
+  }
+
+  const bd = data.score_breakdown;
+  document.getElementById('result-breakdown').innerHTML = `
+    <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;">Детали подсчёта</div>
+    ${brow('База данных', bd.db_match, 60)}
+    ${brow('Краудсорсинг', bd.crowdsource, 25)}
+    ${brow('Жалобы', bd.reports, 20)}
+    ${brow('ИИ-детектор', bd.ai_flag, 20)}`;
+
+  document.getElementById('result-modal').style.display = 'flex';
+}
+
+function row(icon, text, bg, color) {
+  return `<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;background:${bg};font-size:13px;color:${color};">${icon} ${text}</div>`;
+}
+function brow(label, val, max) {
+  const pct = Math.round((val / max) * 100);
+  return `<div style="margin-bottom:10px;">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);margin-bottom:4px;"><span>${label}</span><span>${val} / ${max}</span></div>
+    <div style="height:4px;background:var(--border);border-radius:2px;"><div style="height:4px;background:var(--accent-br);border-radius:2px;width:${pct}%;"></div></div>
+  </div>`;
+}
+
 function switchMainTab(btn, tabId) {
   document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
